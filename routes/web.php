@@ -15,4 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::controller('home', 'HomeController');
+Route::resource('/home', 'HomeController');
