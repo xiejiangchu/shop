@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->enum('status', array_keys(trans('globals.status')))->default('normal');
             $table->enum('verified', array_keys(trans('globals.verification')))->default('no');
             $table->string('description')->nullable();
-            $table->json('extension')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
