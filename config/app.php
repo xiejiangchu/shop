@@ -11,8 +11,8 @@ return [
     | framework needs to place the application's name in a notification or
     | any other location as required by the application or its packages.
      */
-
-    'name'            => 'My Application',
+    
+    'name'            => 'shop',
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +64,11 @@ return [
     |
      */
 
+<<<<<<< Updated upstream
     'timezone'        => 'UTC',
+=======
+    'timezone'        => 'Asia/Shanghai',
+>>>>>>> Stashed changes
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +81,11 @@ return [
     |
      */
 
+<<<<<<< Updated upstream
     'locale'          => 'en',
+=======
+    'locale'          => 'zh_cn',
+>>>>>>> Stashed changes
 
     /*
     |--------------------------------------------------------------------------
@@ -162,6 +170,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -226,7 +235,10 @@ return [
         'URL'          => Illuminate\Support\Facades\URL::class,
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
+<<<<<<< Updated upstream
         'Entrust'      => Zizaco\Entrust\EntrustFacade::class,
+=======
+>>>>>>> Stashed changes
 
     ],
 
