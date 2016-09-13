@@ -39,6 +39,6 @@
     },
     "homepage": "https://github.com/xiejiangchu/shop#readme",
     "dependencies": {
-        "bower": "^1.7.9" >>> >>> > Stashed changes
+        "bower": "^1.7.9"
     }
 }
