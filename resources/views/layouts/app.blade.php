@@ -25,36 +25,13 @@
     @show
 
     @section('footer')
-    <div class="weui_tabbar">
-        <a href="javascript:;" class="weui_tabbar_item weui_bar_item_on">
-          <div class="weui_tabbar_icon">
-            <img src="./images/icon_nav_button.png" alt="">
-          </div>
-          <p class="weui_tabbar_label">首页</p>
-        </a>
-        <a href="javascript:;" class="weui_tabbar_item">
-          <div class="weui_tabbar_icon">
-            <img src="./images/icon_nav_msg.png" alt="">
-          </div>
-          <p class="weui_tabbar_label">订单</p>
-        </a>
-        <a href="javascript:;" class="weui_tabbar_item">
-          <div class="weui_tabbar_icon">
-            <img src="./images/icon_nav_article.png" alt="">
-          </div>
-          <p class="weui_tabbar_label">发现</p>
-        </a>
-        <a href="javascript:;" class="weui_tabbar_item">
-          <div class="weui_tabbar_icon">
-            <img src="./images/icon_nav_cell.png" alt="">
-          </div>
-          <p class="weui_tabbar_label">我</p>
-        </a>
-      </div>
     @show
     {!!Html::script('js/jquery-2.1.4.js')!!}
     {!!Html::script('js/fastclick.js')!!}
     {!!Html::script('js/jquery-weui.min.js')!!}
     {!!Html::script('js/swiper.min.js')!!}
+
+    @section('init_js')
+    @show
 </body>
 </html>
