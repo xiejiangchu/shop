@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Filesystem\Filesystem;
 
@@ -12,6 +14,7 @@ class CategoryTableSeeder extends Seeder
      */
     public function run()
     {
+        $faker    = Faker::create();
         $basePath = base_path();
         $dir      = new Filesystem($basePath);
         $files    = $dir->files('veg');
@@ -24,6 +27,7 @@ class CategoryTableSeeder extends Seeder
                     DB::table('category')->insert([
                         'id'              => $category['id'],
                         'name'            => $category['name'],
+                        'level'           => $category['level'],
                         'order'           => $category['sequence'],
                         'is_delete'       => $category['is_delete'],
                         'is_recommend'    => $category['is_recommend'],
@@ -31,6 +35,8 @@ class CategoryTableSeeder extends Seeder
                         'pic_category'    => $category['pic_category'],
                         'pic_path_big'    => $category['pic_path_big'],
                         'pic_path_little' => $category['pic_path_little'],
+                        'created_at'      => Carbon::now(),
+                        'updated_at'      => Carbon::now(),
                     ]);
                 }
             }

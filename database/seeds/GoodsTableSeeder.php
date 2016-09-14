@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Filesystem\Filesystem;
@@ -58,6 +59,8 @@ class GoodsTableSeeder extends Seeder
                             'summary'        => $product['summary'],
                             'notice'         => $product['notice'],
                             'description'    => null,
+                            'created_at'     => Carbon::now(),
+                            'updated_at'     => Carbon::now(),
                         ]);
 
                     }
