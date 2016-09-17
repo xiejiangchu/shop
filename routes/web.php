@@ -11,12 +11,11 @@
 |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
+Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
+Route::get('/', ['as' => 'home', 'uses' => 'HomeController@home']);
+Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@home']);
+Route::get('/order', ['as' => 'order', 'uses' => 'HomeController@order']);
+Route::get('/profile', ['as' => 'profile', 'uses' => 'HomeController@profile']);
 
-Route::get('/home', 'HomeController@home');
-Route::get('/order', 'HomeController@order');
-Route::get('/mine', 'HomeController@mine');
+Route::get('/category/{cat1}/{cat2?}', ['as' => 'category', 'uses' => 'HomeController@category']);

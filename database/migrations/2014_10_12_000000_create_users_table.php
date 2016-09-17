@@ -15,10 +15,10 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('mobile', 20)->unique();
-            $table->string('email')->unique();
-            $table->string('wx');
+            $table->string('email')->nullable();
+            $table->string('wx')->nullable();
             $table->enum('role', array_keys(trans('globals.roles')))->default('person');
             $table->enum('status', array_keys(trans('globals.status')))->default('normal');
             $table->enum('verified', array_keys(trans('globals.verification')))->default('no');

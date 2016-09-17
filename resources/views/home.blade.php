@@ -11,53 +11,71 @@
 </div>
 
 <div class="category">
-     <p style="display:flex;flex-flow:row nowrap;overFlow-x:auto;overFlow-y: hidden;">
      @foreach($categories1 as $category)
-        <a href="" style="white-space:nowrap;margin:0 5px;">{!! $category->name !!}</a>
+     <div class="category_item">
+       <a href="category/{{$category->id}}/1">{!! $category->name !!}</a>
+     </div>
      @endforeach
-     </p>
 </div>
 
 
- @foreach($goods as $index => $good)
- <div class="weui-row weui-no-gutter">
-  <div class="weui-col-20" style="width:10%;">{{ $index < sizeof($categories2)? $categories2[$index]->name :""}}</div>
-  <div class="weui-col-50" style="width:90%;">
-   <div class="weui_panel weui_panel_access">
-      <div class="weui_panel_bd">
-        <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
-          <div class="weui_media_hd">
-            <img class="weui_media_appmsg_thumb" src="{!! $good->src !!}" alt="">
-          </div>
-          <div class="weui_media_bd">
-            <h4 class="weui_media_title">{!!$good->name!!}</h4>
-            <p class="weui_media_desc">{!!$good->summary!!}</p>
-          </div>
-        </a>
-      </div>
-    </div>
+<div class="home_container">
+  <div class="left">
+   @foreach($categories2 as $index => $category)
+     <div class="category_item {{ $index==0? 'category_item_active':""}}">
+       <a href="category/{{$category->id}}/1">{!! $category->name !!}</a>
+     </div>
+     @endforeach
   </div>
- </div>
-@endforeach
+  <div class="right">
+       @foreach($goods as $index => $good)
+       <div class="weui-row weui-no-gutter">
+          <div class="good_item" >
+              <div class="weui_panel weui_panel_access">
+                  <div class="weui_panel_bd">
+                      <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+                          <div class="weui_media_hd">
+                              <img class="weui_media_appmsg_thumb" src="{!! $good->src !!}" alt="{!!$good->name!!}">
+                          </div>
+                          <div class="weui_media_bd">
+                              <h4 class="weui_media_title">{!!$good->name!!}</h4>
+                              <p class="weui_media_desc">{!!$good->summary!!}</p>
+                              <p class="weui_media_desc">{!!$good->summary!!}</p>
+                          </div>
+                          <div class="cart">
+                            <a href="">+</a>
+                            <span>  100 </span>
+                            <a href="">-</a>
+                        </div>
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      @endforeach
+  </div>
+</div>
+
+
 
 
 @endsection
 
 @section('footer')
-<div class="weui_tabbar" style="position:fixed;bottom:0;">
-    <a href="javascript:;" class="weui_tabbar_item weui_bar_item_on">
+<div class="weui_tabbar">
+    <a href="{{route('home')}}" class="weui_tabbar_item weui_bar_item_on">
       <div class="weui_tabbar_icon">
         <img src="./images/icon_nav_button.png" alt="">
       </div>
       <p class="weui_tabbar_label">首页</p>
     </a>
-    <a href="javascript:;" class="weui_tabbar_item">
+    <a href="{{route('order')}}" class="weui_tabbar_item">
       <div class="weui_tabbar_icon">
         <img src="./images/icon_nav_msg.png" alt="">
       </div>
       <p class="weui_tabbar_label">订单</p>
     </a>
-    <a href="javascript:;" class="weui_tabbar_item">
+    <a href="{{route('profile')}}" class="weui_tabbar_item">
       <div class="weui_tabbar_icon">
         <img src="./images/icon_nav_cell.png" alt="">
       </div>

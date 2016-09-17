@@ -1,82 +1,72 @@
 @extends('layouts.app')
 
+@section('header')
+    <header class="auth-header">
+      <h1 class="auth-title">注册</h1>
+      <p class="auth-sub-title"></p>
+    </header>
+@stop
+
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">注册</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
-                        {{ csrf_field() }}
+<div class="container register">
+    <form method="POST" action="{{ url('/register') }}">
+    {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">姓名</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">电子邮件</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">密码</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">确认密码</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="weui_btn weui_btn_primary">
-                                    注册
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">手机号</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+              <input class="weui_input" id="mobile" type="text" name="mobile" placeholder="手机号">
             </div>
         </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">姓名</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+              <input class="weui_input" id="name" type="text" name="name" placeholder="用户名">
+            </div>
+        </div>
+
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">密码</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+              <input class="weui_input" id="password" type="password" name="password" placeholder="请输入密码">
+            </div>
+        </div>
+
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">确认密码</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+              <input class="weui_input" id="password_confirmation" type="password" name="password_confirmation" placeholder="请输入密码">
+            </div>
+        </div>
+
+        <div class="weui_cell login-error">
+            @if ($errors->has('mobile'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('mobile') }}</strong>
+                </span>
+            @endif
+            @if ($errors->has('name'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('name') }}</strong>
+                </span>
+            @endif
+            @if ($errors->has('password'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </span>
+            @endif
+            @if ($errors->has('password_confirmation'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('password_confirmation') }}</strong>
+                </span>
+            @endif
+        </div>
+
+        <button type="submit" class="weui_btn weui_btn_primary login-submit">
+                    注册
+        </button>
     </div>
+</form>
 </div>
 @endsection

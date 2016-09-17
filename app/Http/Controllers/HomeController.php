@@ -24,9 +24,9 @@ class HomeController extends Controller
      */
     public function home()
     {
-        $categories1 = Category::notDelete()->level1()->get();
-        $categories2 = Category::notDelete()->level2()->get();
-        $goods       = Goods::online()->statusNormal()->notDelete()->take(10)->get();
+        $categories1 = Category::notDelete()->level1()->orderBy('order', 'asc')->get();
+        $categories2 = Category::notDelete()->level2()->orderBy('order', 'desc')->get();
+        $goods       = Goods::online()->statusNormal()->notDelete()->take(20)->get();
         return view('home', [
             'goods'       => $goods,
             'categories1' => $categories1,
@@ -39,8 +39,13 @@ class HomeController extends Controller
         return view('order');
     }
 
-    public function mine()
+    public function profile()
     {
-        return view('mine');
+        return view('profile');
+    }
+
+    public function category($cat1, $cat2)
+    {
+        return "category";
     }
 }

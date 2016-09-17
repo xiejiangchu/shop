@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-    <meta name="description" content="">
+    <meta name="description" content="宜春蔬菜王国">
 
     {!!Html::style('css/weui.min.css')!!}
     {!!Html::style('css/jquery-weui.min.css')!!}

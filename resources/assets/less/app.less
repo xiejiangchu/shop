@@ -1,0 +1,318 @@
+@color-primary: #04BE02;
+@color-danger: #f6383a;
+@color-warning: #f60;
+@color-success: #4cd964;
+@color-yellow:#FF4500;
+@text-50: 50px;
+@text-45: 45px;
+@text-40: 40px;
+@text-35: 35px;
+@text-30: 30px;
+@text-25: 25px;
+@text-20: 20px;
+@text-1: 1px;
+@text-2: 2px;
+@text-3: 3px;
+@text-4: 4px;
+@text-5: 5px;
+@text-6: 6px;
+@text-7: 7px;
+@text-8: 8px;
+@text-9: 9px;
+@text-10: 10px;
+@text-11: 11px;
+@text-12: 12px;
+@text-13: 13px;
+@text-14: 14px;
+@text-15: 15px;
+// escape(@string); // 通过 URL-encoding 编码字符串
+// e(@string); // 对字符串转义
+// %(@string, values...); // 格式化字符串
+// unit(@dimension, [@unit: ""]); // 移除或替换属性值的单位
+// color(@string); // 将字符串解析为颜色值
+// data-uri([mimetype,] url); // * 将资源内嵌到css中，可能回退到url()
+// ceil(@number); // 向上取整
+// floor(@number); // 向下取整
+// percentage(@number); // 将数字转换为百分比，例如 0.5 -> 50%
+// round(number, [places: 0]); // 四舍五入取整
+// sqrt(number); // * 计算数字的平方根
+// abs(number); // * 数字的绝对值
+// sin(number); // * sin函数
+// asin(number); // * arcsin函数
+// cos(number); // * cos函数
+// acos(number); // * arccos函数
+// tan(number); // * tan函数
+// atan(number); // * arctan函数
+// pi(); // * 返回PI
+// pow(@base, @exponent); // * 返回@base的@exponent次方
+// mod(number, number); // * 第一个参数对第二个参数取余
+// convert(number, units); // * 在数字之间转换
+// unit(number, units); // * 不转换的情况下替换数字的单位
+// color(string); // 将字符串或者转义后的值转换成颜色
+// rgb(@r, @g, @b); // 转换为颜色值
+// rgba(@r, @g, @b, @a); // 转换为颜色值
+// argb(@color); // 创建 #AARRGGBB 格式的颜色值
+// hsl(@hue, @saturation, @lightness); // 创建颜色值
+// hsla(@hue, @saturation, @lightness, @alpha); // 创建颜色值
+// hsv(@hue, @saturation, @value); // 创建颜色值
+// hsva(@hue, @saturation, @value, @alpha); // 创建颜色值
+// hue(@color); // 从颜色值中提取 hue 值（色相）
+// saturation(@color); // 从颜色值中提取 saturation 值（饱和度）
+// lightness(@color); // 从颜色值中提取 'lightness' 值（亮度）
+// hsvhue(@color); // * 从颜色中提取 hue 值，以HSV色彩空间表示（色相）
+// hsvsaturation(@color); // * 从颜色中提取 saturation 值，以HSV色彩空间表示（饱和度）
+// hsvvalue(@color); // * 从颜色中提取 value 值，以HSV色彩空间表示（色调）
+// red(@color); // 从颜色值中提取 'red' 值（红色）
+// green(@color); // 从颜色值中提取 'green' 值（绿色）
+// blue(@color); // 从颜色值中提取 'blue' 值（蓝色）
+// alpha(@color); // 从颜色值中提取 'alpha' 值（透明度）
+// luma(@color); // 从颜色值中提取 'luma' 值（亮度的百分比表示法）
+// saturate(@color, 10%); // 饱和度增加 10%
+// desaturate(@color, 10%); // 饱和度降低 10%
+// lighten(@color, 10%); // 亮度增加 10%
+// darken(@color, 10%); // 亮度降低 10%
+// fadein(@color, 10%); // 透明度增加 10%
+// fadeout(@color, 10%); // 透明度降低 10%
+// fade(@color, 50%); // 设定透明度为 50%
+// spin(@color, 10); // 色相值增加 10
+// mix(@color1, @color2, [@weight: 50%]); // 混合两种颜色
+// greyscale(@color); // 完全移除饱和度，输出灰色
+// contrast(@color1, [@darkcolor: black], [@lightcolor: white], [@threshold: 43%]); // 如果 @color1 的 luma 值 > 43% 输出 @darkcolor，否则输出 @lightcolor
+// multiply(@color1, @color2);
+// screen(@color1, @color2);
+// overlay(@color1, @color2);
+// softlight(@color1, @color2);
+// hardlight(@color1, @color2);
+// difference(@color1, @color2);
+// exclusion(@color1, @color2);
+// average(@color1, @color2);
+// negation(@color1, @color2);
+// iscolor(@colorOrAnything); // 判断一个值是否是颜色
+// isnumber(@numberOrAnything); // 判断一个值是否是数字（可含单位）
+// isstring(@stringOrAnything); // 判断一个值是否是字符串
+// iskeyword(@keywordOrAnything); // 判断一个值是否是关键字
+// isurl(@urlOrAnything); // 判断一个值是否是url
+// ispixel(@pixelOrAnything); // 判断一个值是否是以px为单位的数值
+// ispercentage(@percentageOrAnything); // 判断一个值是否是百分数
+// isem(@emOrAnything); // 判断一个值是否是以em为单位的数值
+// isunit(@numberOrAnything, "rem"); // * 判断一个值是否是指定单位的数值
+body {
+    .auth-header {
+        padding: 35px 0;
+        .auth-title {
+            text-align: center;
+            font-size: 34px;
+            color: #3cc51f;
+            font-weight: 400;
+            margin: 0 15%;
+        }
+        .auth-sub-title {
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+        }
+        .auth-second-title {
+            text-align: center;
+            font-size: 24px;
+            color: #3cc51f;
+            font-weight: 400;
+            margin: 0 15%;
+        }
+    }
+    .help-block {
+        color: red;
+    }
+    .login {
+        .login-error {
+            justify-content: center;
+            align-items: center;
+        }
+        .login-submit {
+            width: 80%;
+            margin: 5px auto;
+        }
+        .login-forget {
+            position: absolute;
+            right: 10%;
+            bottom: 0;
+            padding: 0;
+            margin: 0;
+            .weui_btn_primary {
+                margin: 0px;
+            }
+        }
+        .login-row {
+            padding: 10px 10%;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+    }
+    .register {
+        .login-error {
+            justify-content: center;
+            align-items: center;
+        }
+        .login-submit {
+            width: 80%;
+            margin: 5px auto;
+        }
+        .login-row {
+            padding: 10px 10%;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+    }
+    div.swiper-container {
+        width: 100%;
+        height: 200px;
+        .swiper-slide {
+            img {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    }
+    div.category {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: left;
+        color: white;
+        margin-bottom: 10px;
+        .category_item {
+            font-size: 15px;
+            a {
+                white-space: nowrap;
+                margin-left: 5px;
+            }
+        }
+    }
+    div.home_container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        div.left {
+            width: 20%;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #eee;
+            div.category_item {
+                text-align: center;
+                border-bottom: 1px solid #eee;
+                a {
+                    font-size: 10px;
+                    color: black;
+                }
+                background: white;
+            }
+            div.category_item_active {
+                a {
+                    font-size: 12px;
+                    color: white;
+                }
+                background: #aaa;
+            }
+        }
+        div.right {
+            width: 80%;
+            .good_item {
+                margin: 0;
+                border-top: 1px solid #eee;
+                width: 100%;
+                .cart {
+                    position: absolute;
+                    flex: 1;
+                    min-width: 0;
+                    right: 10px;
+                    bottom: 10px;
+                    a {
+                        color: #ccc;
+                    }
+                    span {
+                        color: green;
+                    }
+                }
+            }
+            .weui_media_box {
+                padding: 5px;
+            }
+        }
+    }
+    div.weui_tabbar {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        .weui_tabbar_item {
+            padding-top: 5px;
+        }
+        .weui_tabbar_label {
+            margin-top: 2px;
+        }
+    }
+    /**
+
+    我的页面
+    */
+    .profile {
+        .profile_top {
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: @color-primary;
+            color: white;
+            .profile-row {
+                position: relative;
+                a {
+                    margin: 0;
+                }
+                .right {
+                    position: absolute;
+                    right: 0;
+                }
+            }
+            .avatar {
+                position: absolute;
+                width: 80px;
+                height: 64px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                .avatar_image {
+                    margin: auto;
+                    width: 64px;
+                    height: 64px;
+                    border-radius: 50%;
+                }
+                a {
+                    display: inline-block;
+                    width: 100%;
+                    text-align: center;
+                    border-radius: 0;
+                    border: transparent;
+                    color: white;
+                }
+            }
+        }
+        .bottom {
+            display: flex;
+            width: 100%;
+            border-bottom: solid 1px #ddd;
+            .item {
+                flex: 1;
+                padding: 10px 0;
+                border: 0;
+                border-right: solid 1px #ddd;
+                .weui_tabbar_label {
+                    color: @color-primary;
+                    font-size: @text-15;
+                }
+            }
+        }
+    }
+}

@@ -169,6 +169,7 @@ return [
          */
 
         //
+        'App\Providers\ComposerServiceProvider',
 
         /*
          * Application Service Providers...
