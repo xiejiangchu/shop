@@ -73,7 +73,9 @@ class LoginController extends Controller
             $request['name'] = $request['mobile'];
         }
 
-        $credentials = $this->credentials($request);
+        $credentials             = $this->credentials($request);
+        $credentials['verified'] = 'yes';
+        $credentials['status']   = 'normal';
         if ($this->guard()->attempt($credentials, $request->has('remember'))) {
             return $this->sendLoginResponse($request);
         }
