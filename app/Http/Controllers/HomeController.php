@@ -57,7 +57,7 @@ class HomeController extends Controller
         return view('profile');
     }
 
-    public function category(Request $request, $cat1, $cat2 = null, $page = 1)
+    public function category(Request $request, $cat1, $cat2 = null)
     {
         $categories1      = Category::notDelete()->level1()->orderBy('order', 'desc')->get();
         $category1_active = Category::find($cat1);
@@ -85,7 +85,6 @@ class HomeController extends Controller
             ->where('category_id2', $category2_active->id)->paginate(self::PAGE_SIZE);
 
         if ($request->ajax()) {
-            // return json_encode($paginate);
             return view('ajax.home', [
                 'paginate' => $paginate,
             ]);

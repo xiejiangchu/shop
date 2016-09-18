@@ -32,49 +32,16 @@
      @endforeach
   </div>
   <div class="right">
-  @if(!$paginate->isEmpty())
-       @foreach($paginate as $index => $good)
-       <div class="weui-row weui-no-gutter">
-          <div class="good_item" >
-              <div class="weui_panel weui_panel_access">
-                  <div class="weui_panel_bd">
-                      <div class="weui_media_box weui_media_appmsg">
-                          <div class="weui_media_hd">
-                              <img class="weui_media_appmsg_thumb" src="{!! $good->src !!}" alt="{!!$good->name!!}">
-                          </div>
-                          <div class="weui_media_bd">
-                              <h4 class="weui_media_title">{!!$good->name!!}</h4>
-                              <p class="weui_media_desc">
-                              <span class='market-price'>{!!$good->market_price!!}</span>
-                              <span class='shop-price'>{!!$good->shop_price!!}</span>
-                              {!!'元/'.$good->unit!!} </p>
-                               <p class="weui_media_desc summary">月销量:{!!$good->sale_amount!!}</p>
-                              <p class="weui_media_desc summary">{!!$good->summary!!}</p>
-                          </div>
-                          <div class="cart">
-                            <a href="">+</a>
-                            <span>0</span>
-                            <a href="">-</a>
-                        </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      @endforeach
-      @else
-      <p class="append">没有结果</p>
-      @endif
-      @if($paginate->hasMorePages())
-      <div class="weui-infinite-scroll">
-        <div class="infinite-preloader"></div>
-        正在加载
-      </div>
-      @endif
+    @include('ajax.home')
   </div>
+
+
 </div>
 
-
+<div id='loading' class="weui-infinite-scroll" style='display: block;'>
+      <div class="infinite-preloader"></div>
+      正在加载
+</div>
 
 <div class="shopping">
 
@@ -146,19 +113,75 @@
             $('.shopping-cart-detail').toggle();
           });
 
-          var loading = false;
-          $.ajaxSetup({
-              headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              }
-          });
-          $(document.body).infinite().on("infinite", function() {
-            if(loading) return;
-            loading = true;
-            $.post('/category/{{$category1_active->id}}/{{$category->id}}?page={{$paginate->currentPage()+1}}', {}, function(data, textStatus, xhr) {
-               $data = $(data); // the HTML content that controller has produced
-               $('.right').append($data).fadeIn();
+
+           $(document).on('click', '.cart_add', function(event) {
+             event.preventDefault();
+             console.log($(event.target).attr('gid'));
+              var before=parseInt($('#goods_'+$(event.target).attr('gid')).text());
+             before++;
+             $('#goods_'+$(event.target).attr('gid')).text(before);
+              $('#goods_'+$(event.target).attr('gid')).animate({
+                  left:'10%',
+                  bottom:'80px',
+                  opacity:'0.5',
+                  height:'20px',
+                  width:'20px'
+                },'fast',function(){
+                   console.log('animation end');
+                });
+           });
+
+
+           $(document).on('click', '.cart_sub', function(event) {
+             event.preventDefault();
+             console.log($(event.target).attr('gid'));
+             var before=parseInt($('#goods_'+$(event.target).attr('gid')).text());
+             if(before>0){
+               before--;
+             }
+             $('#goods_'+$(event.target).attr('gid')).text(before);
+             $('#goods_'+$(event.target).attr('gid')).animate({
+                  left:'10px',
+                  bottom:'80px',
+                  opacity:'0.5',
+                  height:'20px',
+                  width:'20px'
+                },'fast',function(){
+                   console.log('animation end');
+                });
+             });
+
+
+           @if($paginate->hasMorePages())
+            var loading = false;
+            var canLoad=true;
+            var current={{$paginate->currentPage()}};
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
-          });
+            $(document.body).infinite().on("infinite", function() {
+                if(!canLoad){
+                  return;
+                }
+                if(loading)
+                  return;
+                loading = true;
+                $('#loading').show();
+                current=current+1;
+                $.post('/category/{{$category1_active->id}}/{{$category2_active->id}}?page='+current, {}, function(data, textStatus, xhr) {
+                  if(data=='no'){
+                    canLoad=false;
+                  }else{
+                    $data = $(data);
+                    $('.right').append($data);
+                  }
+                   loading = false;
+                   $('#loading').hide();
+                });
+              });
+           @endif
+
     </script>
 @stop
