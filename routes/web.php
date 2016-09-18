@@ -18,4 +18,4 @@ Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@home']);
 Route::get('/order', ['as' => 'order', 'uses' => 'HomeController@order']);
 Route::get('/profile', ['as' => 'profile', 'uses' => 'HomeController@profile']);
 
-Route::get('/category/{cat1}/{cat2?}', ['as' => 'category', 'uses' => 'HomeController@category']);
+Route::any('/category/{cat1}/{cat2?}/{page?}', ['as' => 'category', 'uses' => 'HomeController@category']);

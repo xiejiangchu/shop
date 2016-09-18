@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <meta name="description" content="宜春蔬菜王国">
+    @section('head_meta')
+
+    @show
 
     {!!Html::style('css/weui.min.css')!!}
     {!!Html::style('css/jquery-weui.min.css')!!}
@@ -16,7 +19,7 @@
 
     @show
 </head>
-<body>
+<body ontouchstart>
     @section('header')
 
     @show
