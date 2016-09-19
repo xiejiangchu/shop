@@ -2,17 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\ShoppingCart;
 use Illuminate\Http\Request;
 
 class ShoppingCartController extends Controller
 {
+    protected function validateData(Request $request)
+    {
+        $this->validate($request, [
+            'gid'    => 'required|numeric|min:0',
+            'amount' => 'required|numeric|min:0',
+        ]);
+    }
+
     public function add(Request $request)
     {
-        return 'add';
+        $this->validateData($request);
+        $cart_goods = ShoppingCart::firstOrCreate([
+            'gid' => $request['gid'],
+            'uid' => self::getUid(),
+        ]);
+        $cart_goods->amount = $request['amount'];
+        $cart_goods->save();
+        return $cart_goods;
     }
 
     public function sub(Request $request)
     {
-        return 'sub';
+        $this->validateData($request);
+        $this->validateData($request);
+        $cart_goods = ShoppingCart::firstOrCreate([
+            'gid' => $request['gid'],
+            'uid' => self::getUid(),
+        ]);
+        $cart_goods->amount = $request['amount'];
+        $cart_goods->save();
+        return $cart_goods;
     }
 }

@@ -103,80 +103,8 @@
 @stop
 
 @section('init_js')
+    {!!Html::script('js/home.js')!!}
     <script type="text/javascript" charset="utf-8">
-          $(".swiper-container").swiper({
-            loop: true,
-            autoplay: 3000
-          });
-
-          $(document).ready(function($) {
-            var width=$('body').width();
-            $('.category').scrollLeft($('.category_item_active').offset().left-width/2);
-          });
-
-          $(document).on('click','.shopping-cart',function(){
-            $('.shopping-cart-detail').toggle();
-          });
-
-
-           $(document).on('click', '.cart_add', function(event) {
-             event.preventDefault();
-              var before=parseInt($('#goods_'+$(event.target).attr('gid')).text());
-             before++;
-             $('#goods_'+$(event.target).attr('gid')).text(before);
-             var add_t=$(event.target).clone();
-             $('body').append(add_t);
-             $(add_t).css({
-               display: 'block',
-               position: 'absolute',
-               left: '10px',
-               top: '200px;',
-               width: '10px',
-               height: '10px;'
-             });
-           });
-
-
-           $(document).on('click', '.cart_sub', function(event) {
-             event.preventDefault();
-             var before=parseInt($('#goods_'+$(event.target).attr('gid')).text());
-             if(before>0){
-               before--;
-             }
-             $('#goods_'+$(event.target).attr('gid')).text(before);
-             });
-
-
-           @if(!$paginate->isEmpty()&&$paginate->hasMorePages())
-            var loading = false;
-            var canLoad=true;
-            var current={{$paginate->currentPage()}};
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $(document.body).infinite().on("infinite", function() {
-                if(!canLoad){
-                  return;
-                }
-                if(loading)
-                  return;
-                loading = true;
-                $('#loading').show();
-                current=current+1;
-                $.post('/category/{{$category1_active->id}}/{{$category2_active->id}}?page='+current, {}, function(data, textStatus, xhr) {
-                  if($(data).attr("value")=='none'){
-                    canLoad=false;
-                  }else{
-                    $data = $(data);
-                    $('.right').append($data);
-                  }
-                   loading = false;
-                   $('#loading').hide();
-                });
-              });
-           @endif
 
     </script>
 @stop

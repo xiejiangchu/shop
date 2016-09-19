@@ -9,7 +9,8 @@ class Goods extends Model
     protected $table    = 'goods';
     public $timestamps  = true;
     protected $fillable = [];
-    protected $guarded  = [];
+    protected $guarded  = ['is_remain', 'is_online', 'is_rough', 'is_promote', 'is_delete', 'status', 'promote_end', 'order'];
+    protected $appends  = [];
 
     public function scopeOnline($query)
     {

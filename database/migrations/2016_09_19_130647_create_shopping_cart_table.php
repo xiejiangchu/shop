@@ -17,6 +17,7 @@ class CreateShoppingCartTable extends Migration
             $table->increments('id');
             $table->integer('uid')->unsigned();
             $table->integer('gid')->unsigned();
+            $table->integer('amount')->nullable();
             $table->timestamps();
         });
     }

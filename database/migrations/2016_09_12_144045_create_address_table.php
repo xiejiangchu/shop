@@ -18,7 +18,7 @@ class CreateAddressTable extends Migration
             $table->integer('uid')->unsigned();
             $table->boolean('default')->default(1);
             $table->string('mobile', 20);
-            $table->string('nameContact', 20);
+            $table->string('name_contact', 20);
             $table->string('city');
             $table->string('district', 50);
             $table->string('address', 100);
