@@ -7,6 +7,12 @@ return [
         'person' => '用户',
     ],
 
+    'permissions'  => [
+        'manager_goods'  => '管理商品',
+        'manager_orders' => '管理订单',
+        'manager_users'  => '管理用户',
+    ],
+
     'verification' => [
         'yes' => 'yes',
         'no'  => 'no',

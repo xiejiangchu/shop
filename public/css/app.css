@@ -113,7 +113,9 @@ body div.category .category_item a {
   color: black;
 }
 body div.category .category_item_active a {
-  color: #04BE02;
+  border-radius: 3px;
+  background: #04BE02;
+  color: white;
 }
 body div.home_container {
   width: 100%;
