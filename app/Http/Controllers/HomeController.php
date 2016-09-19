@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Goods;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class HomeController extends Controller
 {
@@ -67,9 +68,9 @@ class HomeController extends Controller
 
         if (empty($categories2) || count($categories2) == 0) {
             return view('home', [
-                'paginate'         => array(),
+                'paginate'         => Collection::make(),
                 'categories1'      => $categories1,
-                'categories2'      => array(),
+                'categories2'      => Collection::make(),
                 'category1_active' => $category1_active,
                 'category2_active' => "",
             ]);

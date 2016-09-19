@@ -38,7 +38,7 @@
 
 </div>
 
-<div id='loading' class="weui-infinite-scroll" style='display: block;'>
+<div id='loading' class="weui-infinite-scroll" style='display: none;'>
       <div class="infinite-preloader"></div>
       正在加载
 </div>
@@ -109,6 +109,11 @@
             autoplay: 3000
           });
 
+          $(document).ready(function($) {
+            var width=$('body').width();
+            $('.category').scrollLeft($('.category_item_active').offset().left-width/2);
+          });
+
           $(document).on('click','.shopping-cart',function(){
             $('.shopping-cart-detail').toggle();
           });
@@ -116,43 +121,33 @@
 
            $(document).on('click', '.cart_add', function(event) {
              event.preventDefault();
-             console.log($(event.target).attr('gid'));
               var before=parseInt($('#goods_'+$(event.target).attr('gid')).text());
              before++;
              $('#goods_'+$(event.target).attr('gid')).text(before);
-              $('#goods_'+$(event.target).attr('gid')).animate({
-                  left:'10%',
-                  bottom:'80px',
-                  opacity:'0.5',
-                  height:'20px',
-                  width:'20px'
-                },'fast',function(){
-                   console.log('animation end');
-                });
+             var add_t=$(event.target).clone();
+             $('body').append(add_t);
+             $(add_t).css({
+               display: 'block',
+               position: 'absolute',
+               left: '10px',
+               top: '200px;',
+               width: '10px',
+               height: '10px;'
+             });
            });
 
 
            $(document).on('click', '.cart_sub', function(event) {
              event.preventDefault();
-             console.log($(event.target).attr('gid'));
              var before=parseInt($('#goods_'+$(event.target).attr('gid')).text());
              if(before>0){
                before--;
              }
              $('#goods_'+$(event.target).attr('gid')).text(before);
-             $('#goods_'+$(event.target).attr('gid')).animate({
-                  left:'10px',
-                  bottom:'80px',
-                  opacity:'0.5',
-                  height:'20px',
-                  width:'20px'
-                },'fast',function(){
-                   console.log('animation end');
-                });
              });
 
 
-           @if($paginate->hasMorePages())
+           @if(!$paginate->isEmpty()&&$paginate->hasMorePages())
             var loading = false;
             var canLoad=true;
             var current={{$paginate->currentPage()}};
@@ -171,7 +166,7 @@
                 $('#loading').show();
                 current=current+1;
                 $.post('/category/{{$category1_active->id}}/{{$category2_active->id}}?page='+current, {}, function(data, textStatus, xhr) {
-                  if(data=='no'){
+                  if($(data).attr("value")=='none'){
                     canLoad=false;
                   }else{
                     $data = $(data);

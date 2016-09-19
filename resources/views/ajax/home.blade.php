@@ -13,7 +13,7 @@
                         <p class="weui_media_desc">
                         <span class='market-price'>{!!$good->market_price!!}</span>
                         <span class='shop-price'>{!!$good->shop_price!!}</span>
-                        {!!'元/'.$good->unit!!} </p>
+                        {!!$good->unit!!} </p>
                          <p class="weui_media_desc summary">月销量:{!!$good->sale_amount!!}</p>
                         <p class="weui_media_desc summary">{!!$good->summary!!}</p>
                     </div>
@@ -21,7 +21,6 @@
                       <a class='cart_sub' href="javascript:;" gid={{$good->id}}>-</a>
                       <span id='goods_{{$good->id}}'>0</span>
                       <a class='cart_add' href="javascript:;" gid={{$good->id}}>+</a>
-                      <div id="animation_{{$good->id}}">+</div>
                   </div>
                 </div>
             </div>
@@ -30,5 +29,5 @@
 </div>
 @endforeach
 @else
-'no'
+<div class="message" value='none'>没有商品</div>
 @endif

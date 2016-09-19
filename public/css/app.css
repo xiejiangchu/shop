@@ -98,7 +98,8 @@ body div.category {
   display: block;
   overflow-x: auto;
   white-space: nowrap;
-  margin: 10px 0;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
 }
 body div.category .category_item {
   display: inline-block;
@@ -157,7 +158,6 @@ body div.home_container div.right {
 }
 body div.home_container div.right .good_item {
   margin: 0;
-  border-top: 1px solid #eee;
   width: 100%;
 }
 body div.home_container div.right .good_item .weui_media_hd {
