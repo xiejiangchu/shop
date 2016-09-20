@@ -11,6 +11,11 @@ class Category extends Model
     protected $fillable = [];
     protected $guarded  = [];
 
+    public function children()
+    {
+        return $this->hasMany('App\Category', 'pid', 'id');
+    }
+
     public function scopeLevel1($query)
     {
         return $query->where('level', 1);

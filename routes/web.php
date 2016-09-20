@@ -35,3 +35,14 @@ Route::group(['prefix' => 'cart', 'middleware' => ['auth', 'role:person']], func
     Route::any('/add', ['as' => 'cart.add', 'uses' => 'ShoppingCartController@add']);
     Route::any('/sub', ['as' => 'cart.sub', 'uses' => 'ShoppingCartController@sub']);
 });
+
+Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
+    Route::any('/', ['as' => 'admin', 'uses' => 'HomeController@index']);
+
+    Route::resource('/user', 'UserController');
+    Route::resource('/role', 'RoleController');
+    Route::resource('/permission', 'PermissionController');
+
+    Route::any('/goods', ['as' => 'admin.goods', 'uses' => 'GoodsController@index']);
+    Route::any('/category', ['as' => 'admin.category', 'uses' => 'CategoryController@index']);
+});

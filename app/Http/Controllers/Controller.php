@@ -12,6 +12,8 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    const PAGE_SIZE = 20;
+
     protected function getUid()
     {
         return Auth::user()->id;
