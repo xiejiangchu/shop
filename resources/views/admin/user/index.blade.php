@@ -48,7 +48,7 @@
               </td>
               <td>{{$item->created_at}}</td>
               <td>{{$item->updated_at}}</td>
-              <td><span>通过验证</span><span>更改密码</span><span>锁定</span></td>
+              <td><span>通过验证</span><span>更改密码</span><span>锁定</span><a href="{{route('admin.user.show',$item->id)}}"><span>详情</span></a></td>
             </tr>
             @endforeach
           </table>

@@ -51,7 +51,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = User::find($id);
+        return view('admin.user.show', [
+            'item' => $item,
+        ]);
     }
 
     /**
