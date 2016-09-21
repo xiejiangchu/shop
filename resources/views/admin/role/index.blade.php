@@ -19,7 +19,11 @@
     <div class="col-md-12">
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">所有用户</h3>
+          <h3 class="box-title">所有角色</h3>
+           <div class="pull-right">
+              <a href='{{route('admin.role.create')}}' class="btn btn-default text-bold text-green">
+              <i class="fa fa-plus"></i>新增角色</a>
+            </div>
         </div>
         <!-- /.box-header -->
         <div class="box-body">

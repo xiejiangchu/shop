@@ -40,6 +40,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'as' => 'admin.', 'mi
     Route::any('/', ['as' => 'admin', 'uses' => 'HomeController@index']);
 
     Route::resource('/user', 'UserController');
+    Route::post('/user/{id}/lock', ['as' => 'user.lock', 'uses' => 'UserController@lock']);
+    Route::post('/user/{id}/verified', ['as' => 'user.verified', 'uses' => 'UserController@verified']);
+
     Route::resource('/role', 'RoleController');
     Route::resource('/permission', 'PermissionController');
 

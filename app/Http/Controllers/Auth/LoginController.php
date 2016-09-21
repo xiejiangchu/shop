@@ -74,8 +74,8 @@ class LoginController extends Controller
         }
 
         $credentials             = $this->credentials($request);
-        $credentials['verified'] = 'yes';
-        $credentials['status']   = 'normal';
+        $credentials['verified'] = 1;
+        $credentials['lock']     = 0;
         if ($this->guard()->attempt($credentials, $request->has('remember'))) {
             return $this->sendLoginResponse($request);
         }

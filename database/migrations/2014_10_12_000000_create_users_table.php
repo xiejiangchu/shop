@@ -19,8 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('mobile', 20)->unique();
             $table->string('email')->nullable();
             $table->string('wx')->nullable();
-            $table->enum('status', array_keys(trans('globals.status')))->default('normal');
-            $table->enum('verified', array_keys(trans('globals.verification')))->default('no');
+            $table->boolean('lock')->default(0);
+            $table->boolean('verified')->default(0);
             $table->string('description')->nullable();
             $table->string('password');
             $table->rememberToken();

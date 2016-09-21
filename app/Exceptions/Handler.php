@@ -45,7 +45,11 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {
-            return response()->view('errors.403');
+            if ($request->ajax() || $request->expectsJson()) {
+                return response()->json(['error' => '没有权限'], 403);
+            } else {
+                return response()->view('errors.403');
+            }
         }
         return parent::render($request, $exception);
     }
@@ -60,7 +64,7 @@ class Handler extends ExceptionHandler
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         if ($request->expectsJson()) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
+            return response()->json(['error' => '请先登录'], 401);
         }
 
         return redirect()->guest('login');

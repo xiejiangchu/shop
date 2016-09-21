@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -10,11 +11,11 @@ class UserController extends Controller
 {
     const PAGE_SIZE = 50;
 
-    protected function validate(Request $request)
+    protected function validateItem(Request $request)
     {
         $this->validate($request, [
-            'name'     => 'required|string|max:20',
-            'mobile'   => 'required|numberic|size:11',
+            'name'     => 'required|alpha_dash|max:20',
+            'mobile'   => 'required|digits:11',
             'password' => 'required',
         ]);
     }
@@ -38,7 +39,10 @@ class UserController extends Controller
      */
     public function create()
     {
-
+        // $roles = Role::all();
+        // return view('admin.user.edit', [
+        //     'roles' => $roles,
+        // ]);
     }
 
     /**
@@ -49,7 +53,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request);
+        $this->validateItem($request);
         return User::create([
             'name'     => $request['name'],
             'mobile'   => $request['mobile'],
@@ -79,7 +83,12 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-
+        $item  = User::find($id);
+        $roles = Role::all();
+        return view('admin.user.edit', [
+            'item'  => $item,
+            'roles' => $roles,
+        ]);
     }
 
     /**
@@ -91,13 +100,23 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request);
-        $item = User::find($id);
-        return $item->forceFill([
+        $this->validateItem($request);
+        $item  = User::find($id);
+        $roles = $request['roles'];
+        $item->forceFill([
             'name'     => $request['name'],
             'mobile'   => $request['mobile'],
             'password' => bcrypt($request['password']),
         ])->save();
+
+        $current = $item->roles()->list('id');
+        foreach ($roles as $role) {
+            if (!in_array($role, $current)) {
+                $item->roles()->attach($role);
+            }
+        }
+
+        return redirect()->route('admin.user.index');
     }
 
     /**
@@ -109,8 +128,41 @@ class UserController extends Controller
     public function destroy($id)
     {
         //软删除
-        return User::find($id)->softDeletes();
+        // $item = User::find($id);
+        // $item->softDeletes();
         //硬删除
         //$flight->forceDelete();
+        return self::success();
+    }
+
+    /**
+     * lock
+     *
+     * [lock description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function lock($id)
+    {
+        $item = User::find($id);
+        $item->forceFill([
+            'lock' => !$item['lock'],
+        ])->save();
+        return self::success();
+    }
+
+    /**
+     *verifid
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function verified($id)
+    {
+        $item = User::find($id);
+        $item->forceFill([
+            'verified' => !$item['verified'],
+        ])->save();
+        return self::success();
     }
 }

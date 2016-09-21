@@ -71,7 +71,7 @@ class RolePermissionSeeder extends Seeder
         $user->mobile   = "15121030453";
         $user->email    = "xiejiangchu@163.com";
         $user->wx       = "xiejiangchu";
-        $user->verified = "yes";
+        $user->verified = 1;
         $user->password = bcrypt('123456');
         $user->save();
         $user  = User::find(1);

@@ -34,7 +34,8 @@
             手机号：{{$item->mobile}}<br>
             微信：{{$item->wx}}<br>
             电子邮件: {{$item->email}}<br>
-            状态: {{trans('globals.status')[$item->status]}}
+            状态:  <span class='{{$item->lock?'text-red':"text-green"}}'>{{$item->lock?'锁定':"正常"}}</span><br>
+            是否通过验证   <span class='{{$item->verified?'text-red':"text-green"}}'>{{$item->verified?'未验证':"已验证"}}</span>
           </address>
         </div>
 
@@ -66,17 +67,5 @@
         </div>
       </div>
       <!-- /.row -->
-
-      <!-- this row will not appear when printing -->
-      <div class="row no-print">
-        <div class="col-xs-12">
-          <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-          <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment
-          </button>
-          <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
-            <i class="fa fa-download"></i> Generate PDF
-          </button>
-        </div>
-      </div>
     </section>
 @stop

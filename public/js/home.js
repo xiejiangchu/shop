@@ -64,14 +64,13 @@ $(document).ready(function($) {
                 url: '/cart/add',
                 type: 'post',
                 dataType: 'json',
-                data: { 'gid': gid, 'amount': before },
+                data: { 'gid': gid, 'amount': before }
             })
             .done(function(data) {
-                console.log(data.goods);
                 $('#goods_' + $(event.target).attr('gid')).text(data.amount);
             })
-            .fail(function(e,xhr,data) {
-                alert(data);
+            .fail(function(e) {
+                $.toast(e.responseJSON.error, "forbidden");
             });
     });
     $(document).on('click', '.cart_sub', function(event) {
@@ -90,9 +89,12 @@ $(document).ready(function($) {
                     $('#goods_' + $(event.target).attr('gid')).text(data);
                 })
                 .fail(function(e) {
-                    alert(e.error);
+                     $.toast(xhr.responseJSON.error, "forbidden");
                 });
         }
 
     });
+
+   
+    
 });

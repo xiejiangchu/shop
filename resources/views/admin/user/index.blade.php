@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('head_meta')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
+
 
 @section('header')
     <section class="content-header">
@@ -25,7 +29,7 @@
         <div class="box-body">
           <table class="table table-bordered">
             <tr>
-              <th style="width: 10px">编号</th>
+              <th>编号</th>
               <th>名称</th>
               <th>手机</th>
               <th>邮件</th>
@@ -33,22 +37,27 @@
               <th>状态</th>
               <th>创建时间</th>
               <th>修改时间</th>
-              <th style="width: 40px">操作</th>
+              <th>操作</th>
             </tr>
              @foreach($paginate as $item)
             <tr>
-              <td>{{$item->id}}</td>
-              <td>{{$item->name}}</td>
+              <td class='text-bold'>{{$item->id}}</td>
+              <td class='text-bold'>{{$item->name}}</td>
               <td>{{$item->mobile}}</td>
               <td>{{$item->email}}</td>
               <td>{{$item->wx}}</td>
               <td>
-              {{$item->status?'正常':"锁定"}}
-              {{$item->verified?'未验证':"已验证"}}
+                <span class='{{$item->lock?'text-red':"text-green"}}'>{{$item->lock?'锁定':"正常"}}</span>
+                <span class='{{$item->verified?'text-green':"text-red"}}'>{{$item->verified?'已验证':"未验证"}}</span>
               </td>
               <td>{{$item->created_at}}</td>
               <td>{{$item->updated_at}}</td>
-              <td><span>通过验证</span><span>更改密码</span><span>锁定</span><a href="{{route('admin.user.show',$item->id)}}"><span>详情</span></a></td>
+              <td>
+                 <a href="javascrtpt:;" class='lock' url="{{route('admin.user.lock',$item->id)}}"><i class="fa {{$item->lock? 'fa-unlock-alt text-green':'fa-lock text-red'}}"></i></a>
+                <a href="javascrtpt:;" class='verified' url='{{route('admin.user.verified',$item->id)}}'><i class="fa {{!$item->verified? 'fa-check-square-o text-green':'fa-close text-red'}}"></i></a>
+                <a href="{{route('admin.user.edit',$item->id)}}"><i class="fa fa-edit text-green"></i></a>
+                <a href="{{route('admin.user.show',$item->id)}}"><i class="fa fa-info-circle text-black"></i></a>
+              </td>
             </tr>
             @endforeach
           </table>
@@ -65,4 +74,45 @@
       <!-- /.box -->
     </div>
   </div>
+@stop
+
+@section('init_js')
+  <script type="text/javascript" charset="utf-8">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $(document).on('click', '.verified', function(event) {
+      var url=$(event.target).parent('a').attr('url');
+      $.post(url, {}, function(data, textStatus, xhr) {
+
+      });
+    });
+
+     $(document).on('click', '.lock', function(event) {
+      var url=$(event.target).parent('a').attr('url');
+      $.post(url, {}, function(data, textStatus, xhr) {
+        $.toast("操作成功");
+      });
+    });
+     $(document).on('click', '.destroy', function(event) {
+      var url=$(event.target).parent('a').attr('url');
+       $.ajax({
+            'url': url,
+            'type': 'delete',
+            'dataType': 'json',
+            'data': {},
+        })
+        .done(function() {
+            console.log("success");
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
+    });
+  </script>
 @stop
