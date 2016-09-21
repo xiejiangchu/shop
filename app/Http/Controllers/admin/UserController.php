@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     const PAGE_SIZE = 50;
+
+    protected function validate(Request $request)
+    {
+        $this->validate($request, [
+            'name'     => 'required|string|max:20',
+            'mobile'   => 'required|numberic|size:11',
+            'password' => 'required',
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +38,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -40,7 +49,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request);
+        return User::create([
+            'name'     => $request['name'],
+            'mobile'   => $request['mobile'],
+            'password' => bcrypt($request['password']),
+        ]);
     }
 
     /**
@@ -65,7 +79,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -77,7 +91,13 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request);
+        $item = User::find($id);
+        return $item->forceFill([
+            'name'     => $request['name'],
+            'mobile'   => $request['mobile'],
+            'password' => bcrypt($request['password']),
+        ])->save();
     }
 
     /**
@@ -88,6 +108,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //软删除
+        return User::find($id)->softDeletes();
+        //硬删除
+        //$flight->forceDelete();
     }
 }
