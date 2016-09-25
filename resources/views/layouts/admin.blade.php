@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="description" content="宜春蔬菜王国">
   <base href="/">
   <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
@@ -24,12 +24,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect.
   -->
+
+  {!!Html::style('css/weui.min.css')!!}
+  {!!Html::style('css/jquery-weui.min.css')!!}
+
   <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
   <link rel="stylesheet" href="dist/css/skins/skin-black.min.css">
   <link rel="stylesheet" href="dist/css/skins/skin-purple.min.css">
   <link rel="stylesheet" href="dist/css/skins/skin-yellow.min.css">
   <link rel="stylesheet" href="dist/css/skins/skin-red.min.css">
   <link rel="stylesheet" href="dist/css/skins/skin-green.min.css">
+
+
+
 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -446,6 +453,8 @@ desired effect
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/app.min.js"></script>
+
+ {!!Html::script('js/jquery-weui.min.js')!!}
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

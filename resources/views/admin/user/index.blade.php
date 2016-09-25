@@ -27,12 +27,11 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <table class="table table-bordered">
+          <table class="table table-bordered table-responsive">
             <tr>
               <th>编号</th>
               <th>名称</th>
               <th>手机</th>
-              <th>邮件</th>
               <th>微信</th>
               <th>状态</th>
               <th>创建时间</th>
@@ -44,7 +43,6 @@
               <td class='text-bold'>{{$item->id}}</td>
               <td class='text-bold'>{{$item->name}}</td>
               <td>{{$item->mobile}}</td>
-              <td>{{$item->email}}</td>
               <td>{{$item->wx}}</td>
               <td>
                 <span class='{{$item->lock?'text-red':"text-green"}}'>{{$item->lock?'锁定':"正常"}}</span>
@@ -85,34 +83,26 @@
     });
     $(document).on('click', '.verified', function(event) {
       var url=$(event.target).parent('a').attr('url');
-      $.post(url, {}, function(data, textStatus, xhr) {
+       $.confirm("您确定要该用户已被验证”?", "确认?", function() {
+           $.post(url, {}, function(data, textStatus, xhr) {
 
-      });
+            });
+        }, function() {
+          //取消操作
+        });
+
     });
 
      $(document).on('click', '.lock', function(event) {
       var url=$(event.target).parent('a').attr('url');
-      $.post(url, {}, function(data, textStatus, xhr) {
-        $.toast("操作成功");
-      });
-    });
-     $(document).on('click', '.destroy', function(event) {
-      var url=$(event.target).parent('a').attr('url');
-       $.ajax({
-            'url': url,
-            'type': 'delete',
-            'dataType': 'json',
-            'data': {},
-        })
-        .done(function() {
-            console.log("success");
-        })
-        .fail(function() {
-            console.log("error");
-        })
-        .always(function() {
-            console.log("complete");
+       $.confirm("您确定要锁定该用户?", "确认锁定?", function() {
+          $.post(url, {}, function(data, textStatus, xhr) {
+            $.toast("操作成功");
+          });
+        }, function() {
+          //取消操作
         });
+
     });
   </script>
 @stop

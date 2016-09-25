@@ -44,7 +44,11 @@
               <td>{{$item->description}}</td>
               <td>{{$item->updated_at}}</td>
               </td>
-              <td><span class="badge bg-red">55%</span></td>
+              <td>
+                <a href="{{route('admin.role.edit',$item->id)}}"><i class="fa fa-edit text-green"></i></a>
+                <a href="{{route('admin.role.show',$item->id)}}"><i class="fa fa-info-circle text-black"></i></a>
+                 <a href="javascrtpt:;" class='lock' url="{{route('admin.role.destroy',$item->id)}}"><i class="fa fa-remove text-red"></i></a>
+              </td>
             </tr>
             @endforeach
           </table>

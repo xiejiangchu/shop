@@ -3,11 +3,20 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Permission;
 use App\Role;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+
+    protected function validateItem(Request $request)
+    {
+        $this->validate($request, [
+            'name'         => 'required|alpha_dash|max:20',
+            'display_name' => 'required|string',
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +37,10 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $permissions = Permission::all();
+        return view('admin.role.create', [
+            'permissions' => $permissions,
+        ]);
     }
 
     /**
@@ -39,7 +51,20 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateItem($request);
+        $perms = $request['perms'];
+        $item  = Role::create([
+            'name'         => $request['name'],
+            'display_name' => $request['display_name'],
+            'description'  => $request['description'],
+        ]);
+        foreach ($perms as $perm) {
+            if ($perm == '0') {
+                continue;
+            }
+            $item->perms()->attach($perm);
+        }
+        return redirect()->route('admin.role.index');
     }
 
     /**
@@ -50,7 +75,10 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = Role::find($id);
+        return view('admin.role.show', [
+            'item' => $item,
+        ]);
     }
 
     /**
@@ -61,7 +89,12 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item        = Role::find($id);
+        $permissions = Permission::all();
+        return view('admin.role.edit', [
+            'item'        => $item,
+            'permissions' => $permissions,
+        ]);
     }
 
     /**
@@ -73,7 +106,25 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validateItem($request);
+        $item  = Role::find($id);
+        $perms = $request['perms'];
+        $item->forceFill([
+            'name'         => $request['name'],
+            'display_name' => $request['display_name'],
+            'description'  => $request['description'],
+        ])->save();
+
+        $current = $item->perms()->getRelatedIds();
+        $item->perms()->detach($current);
+        foreach ($perms as $perm) {
+            if ($perm == '0') {
+                continue;
+            }
+            $item->perms()->attach($perm);
+        }
+
+        return redirect()->route('admin.role.index');
     }
 
     /**
