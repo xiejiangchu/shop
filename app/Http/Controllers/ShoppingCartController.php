@@ -39,4 +39,13 @@ class ShoppingCartController extends Controller
         $cart_goods->save();
         return $cart_goods;
     }
+
+    public function calc(Request $request)
+    {
+        $cart_goods = self::getUser()->shoppingCartGoods()->get();
+
+        return view('check', [
+            'cart_goods' => $cart_goods,
+        ]);
+    }
 }

@@ -7,9 +7,11 @@
 @section('content')
 <div class="swiper-container" data-pagination='.swiper-pagination' data-autoplay="1000">
   <div class="swiper-wrapper">
-    <div class="swiper-slide"><img src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1n3rZHFXXXXX9XFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt=""></div>
-    <div class="swiper-slide"><img src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i4/TB10rkPGVXXXXXGapXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt=""></div>
-    <div class="swiper-slide"><img src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1kQI3HpXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt=""></div>
+  @foreach($banners as $banner)
+    <div class="swiper-slide">
+    <img src="{{$banner}}" alt="">
+    </div>
+    @endforeach
   </div>
    <div class="swiper-pagination"></div>
 </div>
@@ -43,11 +45,12 @@
       正在加载
 </div>
 
+@if(!$cart_goods->isEmpty())
 <div class="shopping">
 
   <div class="shopping-cart">
     <div class="shopping-cart-count">
-        5
+        {{count($cart_goods)}}
     </div>
   </div>
 
@@ -56,20 +59,19 @@
         <div class="weui_panel_bd">
             <div class="weui_media_box weui_media_small_appmsg">
                 <div class="weui_cells weui_cells_access">
+                    @foreach($cart_goods as $good)
                     <a class="weui_cell" href="javascript:;">
-                        <div class="weui_cell_hd"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                        <div class="weui_cell_hd"><img src="{{$good->thumb}}" alt="" style="width:20px;margin-right:5px;display:block"></div>
                         <div class="weui_cell_bd weui_cell_primary">
-                            <p>文字标题</p>
+                            <p>{{$good->name}} </p>
+                            <p>{{$good->shop_price.'  x'}} <span class='amount'>{{$good->pivot->amount}}</span><span class='total'>{{$good->shop_price*$good->pivot->amount}}</span> </p>
                         </div>
-                        <span class="weui_cell_ft"></span>
                     </a>
-                    <a class="weui_cell" href="javascript:;">
-                        <div class="weui_cell_hd"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:20px;margin-right:5px;display:block"></div>
-                        <div class="weui_cell_bd weui_cell_primary">
-                            <p>文字标题</p>
-                        </div>
-                        <span class="weui_cell_ft"></span>
-                    </a>
+                    @endforeach
+                    <span class='cart-button'>
+                       <a href="javascript:;" class="weui_btn weui_btn_primary weui_btn_mini">清空购物车</a>
+                       <a href="{{route('cart.calc')}}" class="weui_btn weui_btn_primary weui_btn_mini">结算</a>
+                    </span>
                 </div>
             </div>
         </div>
@@ -77,6 +79,7 @@
 
     </div>
 </div>
+@endif
 @endsection
 
 @section('footer')

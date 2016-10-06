@@ -80,13 +80,13 @@ $(document).ready(function($) {
         if (before > 0) {
             before--;
             $.ajax({
-                    url: '/cart/add',
+                    url: '/cart/sub',
                     type: 'post',
                     dataType: 'json',
                     data: { 'gid': gid, 'amount': before },
                 })
-                .done(function() {
-                    $('#goods_' + $(event.target).attr('gid')).text(data);
+                .done(function(data) {
+                    $('#goods_' + $(event.target).attr('gid')).text(data.amount);
                 })
                 .fail(function(e) {
                      $.toast(xhr.responseJSON.error, "forbidden");

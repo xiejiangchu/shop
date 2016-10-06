@@ -34,6 +34,7 @@ Route::any('/category/{cat1}/{cat2?}/{page?}', ['as' => 'category', 'uses' => 'H
 Route::group(['prefix' => 'cart', 'middleware' => ['auth', 'role:person']], function () {
     Route::any('/add', ['as' => 'cart.add', 'uses' => 'ShoppingCartController@add']);
     Route::any('/sub', ['as' => 'cart.sub', 'uses' => 'ShoppingCartController@sub']);
+    Route::any('/calc', ['as' => 'cart.calc', 'uses' => 'ShoppingCartController@calc']);
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {

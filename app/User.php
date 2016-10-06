@@ -27,4 +27,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function shoppingCartGoods()
+    {
+        return $this->belongsToMany('App\Goods', 'shopping_cart', 'uid', 'gid')->withPivot('uid', 'gid', 'amount');
+    }
 }

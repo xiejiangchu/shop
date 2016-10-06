@@ -52,4 +52,9 @@ class Goods extends Model
     {
         return $query->where('status', 1);
     }
+
+    public function shoppingCartAmount()
+    {
+        return $this->belongsToMany('App\User', 'shopping_cart', 'gid', 'uid')->withPivot('amount');
+    }
 }

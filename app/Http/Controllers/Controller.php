@@ -20,6 +20,11 @@ class Controller extends BaseController
         return Auth::user()->id;
     }
 
+    protected function getUser()
+    {
+        return Auth::user();
+    }
+
     protected function success()
     {
         return response()->json(array(

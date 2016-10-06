@@ -6,6 +6,7 @@ use App\Category;
 use App\Goods;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -19,6 +20,17 @@ class HomeController extends Controller
     public function __construct()
     {
         // $this->middleware('auth');
+    }
+
+    public function getBanners()
+    {
+        return [
+            '/banner/banner-1.jpg',
+            '/banner/banner-2.jpg',
+            '/banner/banner-3.jpg',
+            '/banner/banner-4.jpg',
+            '/banner/banner-5.jpg',
+        ];
     }
 
     /**
@@ -39,12 +51,19 @@ class HomeController extends Controller
             ->where('category_id1', $category1_active->id)
             ->where('category_id2', $category2_active->id)->paginate(self::PAGE_SIZE);
 
+        $cart_goods = new Collection;
+        if (Auth::check()) {
+            $cart_goods = self::getUser()->shoppingCartGoods()->get();
+        }
+
         return view('home', [
+            'banners'          => self::getBanners(),
             'paginate'         => $paginate,
             'categories1'      => $categories1,
             'categories2'      => $categories2,
             'category1_active' => $category1_active,
             'category2_active' => $category2_active,
+            'cart_goods'       => $cart_goods,
         ]);
     }
 
@@ -68,6 +87,7 @@ class HomeController extends Controller
 
         if (empty($categories2) || count($categories2) == 0) {
             return view('home', [
+                'banners'          => self::getBanners(),
                 'paginate'         => Collection::make(),
                 'categories1'      => $categories1,
                 'categories2'      => Collection::make(),
@@ -90,13 +110,19 @@ class HomeController extends Controller
                 'paginate' => $paginate,
             ]);
         }
+        $cart_goods = new Collection;
+        if (Auth::check()) {
+            $cart_goods = self::getUser()->shoppingCartGoods()->get();
+        }
 
         return view('home', [
+            'banners'          => self::getBanners(),
             'paginate'         => $paginate,
             'categories1'      => $categories1,
             'categories2'      => $categories2,
             'category1_active' => $category1_active,
             'category2_active' => $category2_active,
+            'cart_goods'       => $cart_goods,
         ]);
     }
 }
