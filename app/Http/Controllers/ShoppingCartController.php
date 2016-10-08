@@ -23,8 +23,12 @@ class ShoppingCartController extends Controller
             'uid' => self::getUid(),
         ]);
         $cart_goods->amount = $request['amount'];
-        $cart_goods->save();
-        return $cart_goods;
+        if ($cart_goods->amount == 0) {
+            $cart_goods->delete();
+        } else {
+            $cart_goods->save();
+        }
+        return self::cart();
     }
 
     public function sub(Request $request)
@@ -35,7 +39,34 @@ class ShoppingCartController extends Controller
             'uid' => self::getUid(),
         ]);
         $cart_goods->amount = $request['amount'];
-        $cart_goods->save();
+        if ($cart_goods->amount == 0) {
+            $cart_goods->delete();
+        } else {
+            $cart_goods->save();
+        }
+
+        return self::cart();
+    }
+
+    public function cart()
+    {
+        $cart_goods = self::getUser()->shoppingCartGoods()->get();
+        $result     = [];
+        $total      = 0;
+        foreach ($cart_goods as $key => $cart_good) {
+            $result[] = $cart_good->formatAjax();
+            $total += $cart_good->pivot->amount;
+        }
+        return array(
+            "total" => $total,
+            "cart"  => $result,
+        );
+    }
+
+    public function details()
+    {
+        $cart_goods = self::getUser()->shoppingCartGoods()->get();
+
         return $cart_goods;
     }
 

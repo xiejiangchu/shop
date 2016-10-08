@@ -14,13 +14,13 @@
                         <span class='market-price'>{!!$good->market_price!!}</span>
                         <span class='shop-price'>{!!$good->shop_price!!}</span>
                         {!!$good->unit!!} </p>
-                         <p class="weui_media_desc summary">月销量:{!!$good->sale_amount!!}</p>
+                         <p class="weui_media_desc summary">月销量:{!!$good->sale_num!!}</p>
                         <p class="weui_media_desc summary">{!!$good->summary!!}</p>
                     </div>
                     <div class="cart">
-                      <a class='cart_sub' href="javascript:;" gid={{$good->id}}><i class="fa fa-minus-circle color-error"></i></a>
+                      <i class="cart_sub fa fa-minus-circle color-error" gid='{{$good->id}}'></i>
                       <span id='goods_{{$good->id}}'>0</span>
-                      <a class='cart_add' href="javascript:;" gid={{$good->id}}><i class="fa fa-plus-circle color-primary"></i></a>
+                      <i class="cart_add fa fa-plus-circle color-primary" gid='{{$good->id}}'></i>
                   </div>
                 </div>
             </div>

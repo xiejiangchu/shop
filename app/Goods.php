@@ -14,6 +14,14 @@ class Goods extends Model
     protected $guarded  = ['is_remain', 'is_online', 'is_rough', 'is_promote', 'is_delete', 'status', 'promote_end', 'order'];
     protected $appends  = [];
 
+    public function formatAjax()
+    {
+        return array(
+            "id"     => $this->id,
+            "amount" => $this->pivot->amount,
+        );
+    }
+
     public function scopeOnline($query)
     {
         return $query->where('is_online', 1);

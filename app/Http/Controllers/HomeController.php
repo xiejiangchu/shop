@@ -86,8 +86,17 @@ class HomeController extends Controller
             ->where('pid', $category1_active->id)->get();
 
         $cart_goods = new Collection;
+        if (Auth::check()) {
+            $cart_goods = self::getUser()->shoppingCartGoods()->get();
+        }
 
         if (empty($categories2) || count($categories2) == 0) {
+            if ($request->ajax()) {
+                return view('ajax.home', [
+                    'paginate'   => [],
+                    'cart_goods' => $cart_goods,
+                ]);
+            }
             return view('home', [
                 'banners'          => self::getBanners(),
                 'paginate'         => Collection::make(),
@@ -112,9 +121,6 @@ class HomeController extends Controller
             return view('ajax.home', [
                 'paginate' => $paginate,
             ]);
-        }
-        if (Auth::check()) {
-            $cart_goods = self::getUser()->shoppingCartGoods()->get();
         }
 
         return view('home', [

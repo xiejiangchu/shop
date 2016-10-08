@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class SerachController extends Controller
+class SearchController extends Controller
 {
     /**
      * Display a listing of the resource.

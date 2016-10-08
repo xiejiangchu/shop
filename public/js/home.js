@@ -9,17 +9,33 @@
 })(jQuery);
 
 $(document).ready(function($) {
-
-    var current = $.getUrlParam('page');
-
-    var loading = false;
-    var canLoad = true;
-    var url = window.location.href;
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+    $.ajax({
+            url: '/cart/cart',
+            type: 'post',
+            dataType: 'json',
+            data: {}
+        })
+        .done(function(data) {
+            $('.shopping-cart-count').text(data.total);
+            var cart = data.cart;
+            for (var i = 0; i < cart.length; i++) {
+                $('#goods_' + cart[i].id).text(cart[i].amount);
+            }
+        })
+        .fail(function(e) {
+            $.toast(e.responseJSON.error, "forbidden");
+        });
+
+    var current = $.getUrlParam('page');
+    var loading = false;
+    var canLoad = true;
+    var url = window.location.href;
 
     $(document.body).infinite().on("infinite", function() {
         if (!canLoad) {
@@ -65,7 +81,7 @@ $(document).ready(function($) {
                 data: {}
             })
             .done(function(data) {
-               console.log(data);
+                console.log(data);
             })
             .fail(function(e) {
                 $.toast(e.responseJSON.error, "forbidden");
@@ -76,6 +92,7 @@ $(document).ready(function($) {
     $(document).on('click', '.cart_add', function(event) {
         event.preventDefault();
         var gid = $(event.target).attr('gid');
+        console.log(gid);
         var before = parseInt($('#goods_' + gid).text());
         before++;
         $.ajax({
@@ -85,7 +102,11 @@ $(document).ready(function($) {
                 data: { 'gid': gid, 'amount': before }
             })
             .done(function(data) {
-                $('#goods_' + $(event.target).attr('gid')).text(data.amount);
+                $('.shopping-cart-count').text(data.total);
+                var cart = data.cart;
+                for (var i = 0; i < cart.length; i++) {
+                    $('#goods_' + cart[i].id).text(cart[i].amount);
+                }
             })
             .fail(function(e) {
                 $.toast(e.responseJSON.error, "forbidden");
@@ -104,7 +125,11 @@ $(document).ready(function($) {
                     data: { 'gid': gid, 'amount': before },
                 })
                 .done(function(data) {
-                    $('#goods_' + $(event.target).attr('gid')).text(data.amount);
+                    $('.shopping-cart-count').text(data.total);
+                    var cart = data.cart;
+                    for (var i = 0; i < cart.length; i++) {
+                        $('#goods_' + cart[i].id).text(cart[i].amount);
+                    }
                 })
                 .fail(function(e) {
                     $.toast(xhr.responseJSON.error, "forbidden");

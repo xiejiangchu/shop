@@ -16,7 +16,7 @@
    <div class="swiper-pagination"></div>
 </div>
 
- <div class="tags" ng-show="index=='category'">
+ <div class="tags">
     @foreach($categories1 as $category)
     <a href="/category/{{$category->id}}" class="tag {{ $category->id==$category1_active->id? 'active':""}}">{!! $category->name !!}
     </a>
@@ -53,6 +53,7 @@
 <div class="shopping">
 
   <div class="shopping-cart">
+    <i class="fa fa-cart-plus"></i>
     <div class="shopping-cart-count">
         {{count($cart_goods)}}
     </div>
@@ -64,13 +65,20 @@
             <div class="weui_media_box weui_media_small_appmsg">
                 <div class="weui_cells weui_cells_access">
                     @foreach($cart_goods as $good)
-                    <a class="weui_cell" href="javascript:;">
+                    <div class="weui_cell" href="javascript:;">
                         <div class="weui_cell_hd"><img src="{{$good->thumb}}" alt="" style="width:20px;margin-right:5px;display:block"></div>
                         <div class="weui_cell_bd weui_cell_primary">
-                            <p>{{$good->name}} </p>
-                            <p>{{$good->shop_price.'  x'}} <span class='amount'>{{$good->pivot->amount}}</span><span class='total'>{{$good->shop_price*$good->pivot->amount}}</span> </p>
+                            <p>
+                            {{$good->name}}
+                            <span class="cart-op">
+                                <i class="cart_sub fa fa-minus-circle color-error" gid='{{$good->id}}'></i>
+                                <span id='goods_{{$good->id}}'>0</span>
+                                <i class="cart_add fa fa-plus-circle color-primary" gid='{{$good->id}}'></i>
+                            </span>
+                            <p>
+                            <p>{{$good->shop_price}}</p>
                         </div>
-                    </a>
+                    </div>
                     @endforeach
                 </div>
             </div>
