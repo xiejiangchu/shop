@@ -35,7 +35,10 @@ Route::group(['prefix' => 'cart', 'middleware' => ['auth', 'role:person']], func
     Route::any('/add', ['as' => 'cart.add', 'uses' => 'ShoppingCartController@add']);
     Route::any('/sub', ['as' => 'cart.sub', 'uses' => 'ShoppingCartController@sub']);
     Route::any('/calc', ['as' => 'cart.calc', 'uses' => 'ShoppingCartController@calc']);
+    Route::any('/clear', ['as' => 'cart.clear', 'uses' => 'ShoppingCartController@clear']);
 });
+
+Route::resource('/search', 'SerachController');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
     Route::any('/', ['as' => 'admin', 'uses' => 'HomeController@index']);

@@ -85,6 +85,8 @@ class HomeController extends Controller
         $categories2 = Category::notDelete()->level2()->orderBy('order', 'desc')
             ->where('pid', $category1_active->id)->get();
 
+        $cart_goods = new Collection;
+
         if (empty($categories2) || count($categories2) == 0) {
             return view('home', [
                 'banners'          => self::getBanners(),
@@ -93,6 +95,7 @@ class HomeController extends Controller
                 'categories2'      => Collection::make(),
                 'category1_active' => $category1_active,
                 'category2_active' => "",
+                'cart_goods'       => $cart_goods,
             ]);
         }
         if (empty($cat2)) {
@@ -110,7 +113,6 @@ class HomeController extends Controller
                 'paginate' => $paginate,
             ]);
         }
-        $cart_goods = new Collection;
         if (Auth::check()) {
             $cart_goods = self::getUser()->shoppingCartGoods()->get();
         }

@@ -30,6 +30,27 @@
     </div>
   </div>
 
+  <div class="weui_cell">
+    <div class="weui_cell_hd"><label for="time4" class="weui_label">定制时间</label></div>
+    <div class="weui_cell_bd weui_cell_primary">
+      <input class="weui_input" id="time4" type="text" value="2012-12-12 上午8点">
+    </div>
+  </div>
+
+  <div class="weui_cell">
+    <div class="weui_cell_hd"><label for="date" class="weui_label">日期</label></div>
+    <div class="weui_cell_bd weui_cell_primary">
+      <input class="weui_input" id="date" type="text">
+    </div>
+  </div>
+
+  <div class="weui_cell">
+    <div class="weui_cell_hd"><label for="time-format" class="weui_label">自定义格式</label></div>
+    <div class="weui_cell_bd weui_cell_primary">
+      <input class="weui_input" id="time-format" type="text" value="2012年12月12日 12时13分">
+    </div>
+  </div>
+
 <div class="weui_cells_title">支付信息</div>
   <div class="weui_cell weui_cell_select">
     <div class="weui_cell_bd weui_cell_primary">
@@ -89,4 +110,62 @@
     <a class="weui_btn weui_btn_primary" href="javascript:" id="showTooltips">提交订单</a>
   </div>
 </div>
+@stop
+
+@section('init_js')
+    <script type="text/javascript" charset="utf-8">
+      $("#date").calendar({
+          onChange: function(p, values, displayValues) {
+              console.log(values, displayValues);
+          }
+      });
+
+      $("#time4").datetimePicker({
+          times: function() {
+              return [{
+                  values: ['上午6点', '上午7点', '上午8点']
+              }];
+          },
+          onChange: function(picker, values, displayValues) {
+              console.log(values);
+          }
+      });
+
+      $("#time-format").datetimePicker({
+          title: '自定义格式',
+          yearSplit: '年',
+          monthSplit: '月',
+          dateSplit: '日',
+          value: '2016-9-7 00:01',
+          min: new Date().setDate(new Date().getDay()-1),
+          max: new Date(),
+          times: function() {
+              return [ // 自定义的时间
+                  {
+                      values: (function() {
+                          var hours = [];
+                          for (var i = 0; i < 24; i++)
+                            hours.push(i > 9 ? i : '0' + i);
+                          return hours;
+                      })()
+                  }, {
+                      divider: true, // 这是一个分隔符
+                      content: '时'
+                  }, {
+                      values: (function() {
+                          var minutes = [];
+                          for (var i = 0; i < 59; i++) minutes.push(i > 9 ? i : '0' + i);
+                          return minutes;
+                      })()
+                  }, {
+                      divider: true, // 这是一个分隔符
+                      content: '分'
+                  }
+              ];
+          },
+          onChange: function(picker, values, displayValues) {
+              console.log(values);
+          }
+      });
+    </script>
 @stop

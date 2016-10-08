@@ -16,28 +16,32 @@
    <div class="swiper-pagination"></div>
 </div>
 
-<div class="category">
-     @foreach($categories1 as $category)
-     <div class="category_item {{ $category->id==$category1_active->id? 'category_item_active':""}}">
-       <a href="/category/{{$category->id}}">{!! $category->name !!}</a>
-     </div>
-     @endforeach
+ <div class="tags" ng-show="index=='category'">
+    @foreach($categories1 as $category)
+    <a href="/category/{{$category->id}}" class="tag {{ $category->id==$category1_active->id? 'active':""}}">{!! $category->name !!}
+    </a>
+    @endforeach
+</div>
+
+<div class="filter-container">
+    <div class="weui-row weui-no-gutter">
+      <div id='filter-category' class="weui-col-33">二级分类<i class="fa fa-angle-right"></i>
+        <div class="catgory2">
+          @foreach($categories2 as $index => $category)
+             <a href="/category/{{$category1_active->id}}/{{$category->id}}">{!! $category->name !!}</a>
+           @endforeach
+        </div>
+      </div>
+      <div id='filter-orderby' class="weui-col-33">智能排序<i class="fa fa-angle-right"></i></div>
+      <div id='filter-price' class="weui-col-33">价格排序<i class="fa fa-angle-right"></i></div>
+    </div>
 </div>
 
 
 <div class="home_container">
-  <div class="left">
-   @foreach($categories2 as $index => $category)
-     <div class="category_item {{ $category->id==$category2_active->id? 'category_item_active':""}}">
-       <a href="/category/{{$category1_active->id}}/{{$category->id}}">{!! $category->name !!}</a>
-     </div>
-     @endforeach
-  </div>
   <div class="right">
     @include('ajax.home')
   </div>
-
-
 </div>
 
 <div id='loading' class="weui-infinite-scroll" style='display: none;'>
@@ -68,16 +72,16 @@
                         </div>
                     </a>
                     @endforeach
-                    <span class='cart-button'>
-                       <a href="javascript:;" class="weui_btn weui_btn_primary weui_btn_mini">清空购物车</a>
-                       <a href="{{route('cart.calc')}}" class="weui_btn weui_btn_primary weui_btn_mini">结算</a>
-                    </span>
                 </div>
             </div>
         </div>
+        <span class="cart-close"> <i class="fa fa-close"></i></span>
+         <span class='cart-button'>
+           <a href="javascript:;" class="cart-clear weui_btn weui_btn_primary weui_btn_mini"><i class="fa fa-trash">清空</i></a>
+           <a href="{{route('cart.calc')}}" class="weui_btn weui_btn_primary weui_btn_mini">结算</a>
+        </span>
     </div>
-
-    </div>
+</div>
 </div>
 @endif
 @endsection
@@ -85,22 +89,16 @@
 @section('footer')
 <div class="weui_tabbar">
     <a href="{{route('home')}}" class="weui_tabbar_item weui_bar_item_on">
-      <div class="weui_tabbar_icon">
-        <img src="/images/icon_nav_button.png" alt="">
-      </div>
-      <p class="weui_tabbar_label">首页</p>
+      <p class="weui_tabbar_label"><i class="fa fa-home"></i>首页</p>
+    </a>
+     <a href="{{route('search.index')}}" class="weui_tabbar_item">
+      <p class="weui_tabbar_label"><i class="fa fa-search"></i>搜索</p>
     </a>
     <a href="{{route('order')}}" class="weui_tabbar_item">
-      <div class="weui_tabbar_icon">
-        <img src="/images/icon_nav_msg.png" alt="">
-      </div>
-      <p class="weui_tabbar_label">订单</p>
+      <p class="weui_tabbar_label"><i class="fa fa-history"></i>订单</p>
     </a>
     <a href="{{route('profile')}}" class="weui_tabbar_item">
-      <div class="weui_tabbar_icon">
-        <img src="/images/icon_nav_cell.png" alt="">
-      </div>
-      <p class="weui_tabbar_label">我</p>
+      <p class="weui_tabbar_label"><i class="fa fa-user"></i>我的</p>
     </a>
   </div>
 @stop

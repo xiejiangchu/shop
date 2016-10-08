@@ -4,6 +4,8 @@
 @color-success: #4cd964;
 @color-yellow: #FF4500;
 @color-grey: #aaa;
+@primary-color: #56bb36;
+@border-color: #d9d9d9;
 @text-50: 50px;
 @text-45: 45px;
 @text-40: 40px;
@@ -179,31 +181,83 @@ body {
             }
         }
     }
-    div.category {
-        width: 100%;
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-        border-bottom: 1px solid #eee;
-        padding: 10px 0;
-        .category_item {
+    div.message {
+        text-align: center;
+        padding: 40% 0;
+        .none {
             display: inline-block;
-            margin: 0 2px;
-            padding: 2px 10px;
+            font-size: 30px;
+            color: @color-grey;
+            margin: 0 auto;
+        }
+    }
+    div.tags {
+        width: 100%;
+        padding: 3px;
+        text-align: left;
+        .tag {
+            display: inline-block;
+            font-size: 12px;
+            color: @primary-color;
+            border: 1px solid #bbbbbb;
+            border-radius: 10px;
+            padding: 0 8px;
+            margin: 1px;
+            text-align: center;
+        }
+        > .active {
+            color: white;
+            background: @primary-color;
+            border: 1px solid @primary-color;
+        }
+    }
+    div.weui_tabbar {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        padding: 10px 0;
+        background: white;
+        * {
             font-size: 15px;
-            background: white;
-            a {
-                white-space: nowrap;
-                margin-left: 5px;
-                font-size: @text-15;
-                color: black;
+        }
+        .weui_tabbar_item {
+            padding-top: 0px;
+        }
+        .weui_tabbar_label {
+            margin-top: 0px;
+            i {
+                margin-right: 5px;
             }
         }
-        .category_item_active {
-            background: @color-primary;
-            border-radius: 8px;
+    }
+    div.filter-container {
+        width: 100%;
+        padding: 0;
+        border-top: 1px solid @border-color;
+        border-bottom: 1px solid @border-color;
+        font-size: 12px;
+        i {
+            margin-left: 5px;
+            color: @border-color;
+        }
+        [class*="weui-col-"] {
+            border-right: 1px solid @border-color;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+        .catgory2 {
+            display: block;
+            width: 33%;
+            left: 0;
+            top: 0;
             a {
-                color: white;
+                display: block;
+                width: 100%;
+                text-align: center;
+                font-size: 5px;
+                border: 1px solid #bbbbbb;
             }
         }
     }
@@ -216,10 +270,10 @@ body {
             width: 20%;
             display: flex;
             flex-direction: column;
-            border-right: 1px solid #eee;
+            border-right: 1px solid @border-color;
             div.category_item {
                 text-align: center;
-                border-bottom: 1px solid #eee;
+                border-bottom: 1px solid @border-color;
                 a {
                     font-size: 10px;
                     color: black;
@@ -235,46 +289,48 @@ body {
             }
         }
         div.right {
-            width: 80%;
+            width: 100%;
             .good_item {
                 margin: 0;
-                // border-bottom: 1px solid #eee;
+                // border-bottom: 1px solid @border-color;
                 width: 100%;
-                .weui_media_hd {
-                    margin-right: 3px;
-                }
-                .weui_media_bd {
-                    min-width: 0;
-                    width: 60%;
-                    .weui_media_title {
-                        font-size: @text-15;
+                .weui_media_box {
+                    padding: 3px;
+                    position: relative;
+                    .weui_media_hd {
+                        margin-right: 3px;
                     }
-                }
-                .cart {
-                    display: block;
-                    position: absolute;
-                    text-align: center;
-                    right: 5px;
-                    top: 50%;
-                    border: 1px solid #eee;
-                    box-sizing: content-box;
-                    transform: translate(0, -50%);
-                    a {
-                        display: inline-block;
+                    .weui_media_bd {
+                        min-width: 0;
+                        padding: 0;
                         margin: 0;
-                        padding: 0 6px;
-                        text-align: center;
-                        color: @color-grey;
+                        width: 60%;
+                        .weui_media_title {
+                            font-size: @text-15;
+                        }
                     }
-                    span {
-                        display: inline-block;
+                    .cart {
+                        position: relative;
                         text-align: center;
-                        border-left: 1px solid #eee;
-                        border-right: 1px solid #eee;
-                        margin: 0;
-                        padding: 0 10px;
-                        text-align: center;
-                        color: @color-primary;
+                        right: 5px;
+                        bottom: -20px;
+                        font-size: 1.5em;
+                        transform: translate(0, -50%);
+                        a {
+                            display: inline-block;
+                            margin: 0;
+                            padding: 0 2px;
+                            text-align: center;
+                            color: @color-grey;
+                        }
+                        span {
+                            display: inline-block;
+                            text-align: center;
+                            margin: 0;
+                            padding: 0 2px;
+                            text-align: center;
+                            color: @color-grey;
+                        }
                     }
                 }
             }
@@ -293,19 +349,6 @@ body {
             .summary {
                 font-size: @text-12;
             }
-        }
-    }
-    div.weui_tabbar {
-        width: 100%;
-        height: 44px;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        .weui_tabbar_item {
-            padding-top: 2px;
-        }
-        .weui_tabbar_label {
-            margin-top: 2px;
         }
     }
     div.shopping {
@@ -345,10 +388,19 @@ body {
             bottom: 90px;
             left: 10%;
             width: 80%;
+            height: 70%;
             background: rgba(200, 200, 200, 0.8);
             padding: 5px;
             margin: 0;
             z-index: 1;
+            div.weui_panel {
+                position: relative;
+                height: 100%;
+            }
+            div.weui_panel_bd {
+                height: 90%;
+                overflow-y: scroll;
+            }
             .amount {
                 color: red;
             }
@@ -358,10 +410,27 @@ body {
                 margin-right: 10px;
                 color: red;
             }
+            .cart-close {
+                display: inline-block;
+                background: rgba(200, 200, 200, 0.5);
+                position: absolute;
+                border-radius: 60%;
+                top: 10px;
+                right: 10px;
+                width: 26px;
+                height: 26px;
+                color: red;
+                text-align: center;
+            }
             .cart-button {
+                display: inline-block;
+                background: white;
+                position: absolute;
+                bottom: 0;
                 border-top: 1px solid #d9d9d9;
                 display: inline-block;
                 width: 100%;
+                height: 10%;
                 text-align: center;
             }
         }
@@ -461,7 +530,6 @@ body {
             }
         }
     }
-
     div.profile-container {
         margin-top: 50px;
         .weui_panel_bd {

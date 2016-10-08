@@ -30,7 +30,6 @@ class ShoppingCartController extends Controller
     public function sub(Request $request)
     {
         $this->validateData($request);
-        $this->validateData($request);
         $cart_goods = ShoppingCart::firstOrCreate([
             'gid' => $request['gid'],
             'uid' => self::getUid(),
@@ -38,6 +37,12 @@ class ShoppingCartController extends Controller
         $cart_goods->amount = $request['amount'];
         $cart_goods->save();
         return $cart_goods;
+    }
+
+    public function clear()
+    {
+        $affectedRows = ShoppingCart::where('uid', self::getUid())->delete();
+        return $affectedRows;
     }
 
     public function calc(Request $request)

@@ -18,9 +18,9 @@
                         <p class="weui_media_desc summary">{!!$good->summary!!}</p>
                     </div>
                     <div class="cart">
-                      <a class='cart_sub' href="javascript:;" gid={{$good->id}}>-</a>
+                      <a class='cart_sub' href="javascript:;" gid={{$good->id}}><i class="fa fa-minus-circle color-error"></i></a>
                       <span id='goods_{{$good->id}}'>0</span>
-                      <a class='cart_add' href="javascript:;" gid={{$good->id}}>+</a>
+                      <a class='cart_add' href="javascript:;" gid={{$good->id}}><i class="fa fa-plus-circle color-primary"></i></a>
                   </div>
                 </div>
             </div>
@@ -29,5 +29,5 @@
 </div>
 @endforeach
 @else
-<div class="message" value='none'>没有商品</div>
+<div class="message" value='none'><span class="none"><i class="fa fa-none">没有商品</i></span></div>
 @endif

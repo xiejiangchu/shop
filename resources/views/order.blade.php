@@ -88,22 +88,16 @@
 @section('footer')
 <div class="weui_tabbar">
     <a href="{{route('home')}}" class="weui_tabbar_item">
-      <div class="weui_tabbar_icon">
-        <img src="./images/icon_nav_button.png" alt="">
-      </div>
-      <p class="weui_tabbar_label">首页</p>
+      <p class="weui_tabbar_label"><i class="fa fa-home"></i>首页</p>
+    </a>
+    <a href="{{route('search.index')}}" class="weui_tabbar_item">
+      <p class="weui_tabbar_label"><i class="fa fa-search"></i>搜索</p>
     </a>
     <a href="{{route('order')}}" class="weui_tabbar_item weui_bar_item_on">
-      <div class="weui_tabbar_icon">
-        <img src="./images/icon_nav_msg.png" alt="">
-      </div>
-      <p class="weui_tabbar_label">订单</p>
+      <p class="weui_tabbar_label"><i class="fa fa-history"></i>订单</p>
     </a>
     <a href="{{route('profile')}}" class="weui_tabbar_item">
-      <div class="weui_tabbar_icon">
-        <img src="./images/icon_nav_cell.png" alt="">
-      </div>
-      <p class="weui_tabbar_label">我</p>
+      <p class="weui_tabbar_label"><i class="fa fa-user"></i>我的</p>
     </a>
   </div>
 @stop
