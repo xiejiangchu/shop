@@ -66,6 +66,15 @@ class RolePermissionSeeder extends Seeder
 
         // 'middleware' => ['ability:admin|owner,create-post|edit-user,true']
 
+        $test           = new User;
+        $test->name     = "测试";
+        $test->mobile   = "15121030452";
+        $test->email    = "test@163.com";
+        $test->wx       = "test";
+        $test->verified = 1;
+        $test->password = bcrypt('123456');
+        $test->save();
+
         $user           = new User;
         $user->name     = "管理员";
         $user->mobile   = "15121030453";
@@ -82,7 +91,8 @@ class RolePermissionSeeder extends Seeder
             $item->display_name = $value;
             $item->save();
         }
-        $admin = Role::where('name', 'admin')->first();
+        $admin  = Role::where('name', 'admin')->first();
+        $person = Role::where('name', 'person')->first();
 
         $permissions = trans('globals.permissions');
         foreach ($permissions as $key => $value) {
@@ -94,5 +104,6 @@ class RolePermissionSeeder extends Seeder
         }
 
         $user->attachRole($admin);
+        $test->attachRole($person);
     }
 }

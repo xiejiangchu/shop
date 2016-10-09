@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Address;
 use Illuminate\Http\Request;
 
-class OrderController extends Controller
+class AddressController extends Controller
 {
+    const PAGE_SIZE = 50;
 
-    protected function validateData(Request $request)
+    protected function validateItem(Request $request)
     {
         $this->validate($request, [
-            'address_id'      => 'required|numeric|min:0',
-            'bonus_id'        => 'required|numeric|min:0',
-            'best_time_start' => 'required|datetime|min:0',
-            'best_time_end'   => 'required|datetime|min:0',
-            'payment'         => 'required|numeric|min:0',
+            'mobile'        => 'required|alpha_dash|max:20',
+            'name_contract' => 'required|string',
+            'region_id'     => 'required|numberic',
+            'address'       => 'required|string',
         ]);
     }
     /**
@@ -24,7 +25,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $paginate = Address::paginate(self::PAGE_SIZE);
+        return view('address.index', [
+            'paginate' => $paginate,
+        ]);
     }
 
     /**
@@ -34,7 +38,10 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('address.create', [
+
+        ]);
     }
 
     /**

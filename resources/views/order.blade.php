@@ -90,8 +90,8 @@
     <a href="{{route('home')}}" class="weui_tabbar_item">
       <p class="weui_tabbar_label"><i class="fa fa-home"></i>首页</p>
     </a>
-    <a href="{{route('search.index')}}" class="weui_tabbar_item">
-      <p class="weui_tabbar_label"><i class="fa fa-search"></i>搜索</p>
+     <a href="{{route('cart.cart')}}" class="weui_tabbar_item">
+      <p class="weui_tabbar_label"><i class="fa fa-search"></i>购物车</p>
     </a>
     <a href="{{route('order')}}" class="weui_tabbar_item weui_bar_item_on">
       <p class="weui_tabbar_label"><i class="fa fa-history"></i>订单</p>

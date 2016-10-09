@@ -16,7 +16,7 @@ $(document).ready(function($) {
     });
 
     $.ajax({
-            url: '/cart/cart',
+            url: '/cart/cartShort',
             type: 'post',
             dataType: 'json',
             data: {}
@@ -27,10 +27,11 @@ $(document).ready(function($) {
             for (var i = 0; i < cart.length; i++) {
                 $('#goods_' + cart[i].id).text(cart[i].amount);
             }
-        })
-        .fail(function(e) {
-            $.toast(e.responseJSON.error, "forbidden");
         });
+
+
+    var width = $('body').width();
+    $('.category').scrollLeft($('.category .active').offset().left - width / 2+$('.category .active').width()/2);
 
     var current = $.getUrlParam('page');
     var loading = false;
@@ -71,28 +72,10 @@ $(document).ready(function($) {
         $('.shopping-cart-detail').toggle();
     });
 
-    $(document).on('click', '.cart-clear', function(event) {
-        event.preventDefault();
-        var gid = $(event.target).attr('gid');
-        $.ajax({
-                url: '/cart/clear',
-                type: 'post',
-                dataType: 'json',
-                data: {}
-            })
-            .done(function(data) {
-                console.log(data);
-            })
-            .fail(function(e) {
-                $.toast(e.responseJSON.error, "forbidden");
-            });
-    });
-
 
     $(document).on('click', '.cart_add', function(event) {
         event.preventDefault();
         var gid = $(event.target).attr('gid');
-        console.log(gid);
         var before = parseInt($('#goods_' + gid).text());
         before++;
         $.ajax({

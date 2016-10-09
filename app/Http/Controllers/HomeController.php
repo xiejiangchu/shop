@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Banner;
 use App\Category;
 use App\Goods;
 use Illuminate\Http\Request;
@@ -24,13 +25,7 @@ class HomeController extends Controller
 
     public function getBanners()
     {
-        return [
-            '/banner/banner-1.jpg',
-            '/banner/banner-2.jpg',
-            '/banner/banner-3.jpg',
-            '/banner/banner-4.jpg',
-            '/banner/banner-5.jpg',
-        ];
+        return Banner::show()->orderBy('order')->get();
     }
 
     /**

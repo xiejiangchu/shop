@@ -45,4 +45,4 @@ gulp.task('watch_app_less', function() {
 gulp.task('app_server', function() {
     connect.server();
 });
-gulp.task("app", ['app_less', 'watch_app_less', 'app_server']);
+gulp.task("app", ['app_less', 'watch_app_less']);

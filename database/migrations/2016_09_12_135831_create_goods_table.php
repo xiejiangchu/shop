@@ -38,7 +38,8 @@ class CreateGoodsTable extends Migration
             $table->decimal('sale_num', 10, 2)->default(0);
             $table->integer('quanlity');
             $table->string('unit');
-            $table->decimal('unit_sell', 10, 2)->default(1.00);
+            $table->string('unit_sell');
+            // $table->decimal('unit_sell', 10, 2)->default(1.00);
             $table->string('unitDesc')->nullable();
             $table->string('src')->nullable();
             $table->string('thumb')->nullable();

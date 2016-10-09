@@ -64,6 +64,9 @@ class Handler extends ExceptionHandler
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         if ($request->expectsJson()) {
+            if ($request->url() == route('cart.cart')) {
+                return response('', 401);
+            }
             return response()->json(['error' => '请先登录'], 401);
         }
 

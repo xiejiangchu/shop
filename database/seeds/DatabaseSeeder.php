@@ -5,6 +5,8 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
+     * php artisan make:seeder BannerSeeder
+     * php artisan db:seed --class=BannerSeeder
      * Run the database seeds.
      *
      * @return void
@@ -16,6 +18,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(RolePermissionSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(BannerSeeder::class);
 
     }
 }

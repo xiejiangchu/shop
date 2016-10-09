@@ -17,7 +17,7 @@ class GoodsTableSeeder extends Seeder
         $faker    = Faker::create();
         $basePath = base_path();
         $dir      = new Filesystem($basePath);
-        $files    = $dir->files('veg');
+        $files    = $dir->files('veg/back');
         foreach ($files as $index => $file) {
             if (strpos($file, 'cat') === false && strpos($file, 'txt') !== false) {
                 $file_content = file_get_contents($basePath . '/' . $file);

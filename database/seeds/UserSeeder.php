@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 2; $i++) {
             DB::table('users')->insert([
                 'name'       => $faker->regexify('user_[\w\d]{3}'),
                 'mobile'     => $faker->regexify('1[345789]{1}[0-9]{9}'),

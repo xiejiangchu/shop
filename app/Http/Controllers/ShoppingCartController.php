@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ShoppingCart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class ShoppingCartController extends Controller
 {
@@ -28,7 +29,7 @@ class ShoppingCartController extends Controller
         } else {
             $cart_goods->save();
         }
-        return self::cart();
+        return self::cartShort();
     }
 
     public function sub(Request $request)
@@ -45,10 +46,10 @@ class ShoppingCartController extends Controller
             $cart_goods->save();
         }
 
-        return self::cart();
+        return self::cartShort();
     }
 
-    public function cart()
+    public function cartShort()
     {
         $cart_goods = self::getUser()->shoppingCartGoods()->get();
         $result     = [];
@@ -63,17 +64,43 @@ class ShoppingCartController extends Controller
         );
     }
 
+    public function cart()
+    {
+        $cart_goods = self::getUser()->shoppingCartGoods()->get();
+        $result     = [];
+        $total      = 0;
+        foreach ($cart_goods as $key => $cart_good) {
+            $total += $cart_good->pivot->amount;
+        }
+
+        return view('cart', [
+            "total" => $total,
+            "cart"  => $cart_goods,
+        ]);
+    }
+
     public function details()
     {
         $cart_goods = self::getUser()->shoppingCartGoods()->get();
+        $result     = [];
+        $total      = 0;
+        foreach ($cart_goods as $key => $cart_good) {
+            $total += $cart_good->pivot->amount;
+        }
 
-        return $cart_goods;
+        return view('cart', [
+            "total" => $total,
+            "cart"  => $cart_goods,
+        ]);
     }
 
     public function clear()
     {
         $affectedRows = ShoppingCart::where('uid', self::getUid())->delete();
-        return $affectedRows;
+        return view('cart', [
+            "total" => 0,
+            "cart"  => new Collection,
+        ]);
     }
 
     public function calc(Request $request)

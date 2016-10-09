@@ -70,7 +70,7 @@
               <span class="weui_cell_ft"></span>
             </a>
           @endif
-            <a class="weui_cell" href="javascript:;">
+            <a class="weui_cell" href="{{route('address.index')}}">
               <div class="weui_cell_hd">
                 <i class="fa fa-bullseye "></i>
               </div>

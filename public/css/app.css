@@ -105,6 +105,28 @@ body div.message .none {
   color: #aaa;
   margin: 0 auto;
 }
+body div.category {
+  margin: 5px 0;
+  padding: 5px 2px;
+  border-top: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+  white-space: nowrap;
+  font-size: 20px;
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: none;
+}
+body div.category .category_item {
+  display: inline-block;
+  color: black;
+  margin: 0 5px;
+}
+body div.category a:visited {
+  color: black;
+}
+body div.category > a.active {
+  color: #56bb36;
+}
 body div.tags {
   width: 100%;
   padding: 3px;
@@ -186,33 +208,6 @@ body div.home_container {
       -ms-flex-direction: row;
           flex-direction: row;
   margin-bottom: 100px;
-}
-body div.home_container div.left {
-  width: 20%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  border-right: 1px solid #d9d9d9;
-}
-body div.home_container div.left div.category_item {
-  text-align: center;
-  border-bottom: 1px solid #d9d9d9;
-  background: white;
-}
-body div.home_container div.left div.category_item a {
-  font-size: 10px;
-  color: black;
-}
-body div.home_container div.left div.category_item_active {
-  background: #04BE02;
-}
-body div.home_container div.left div.category_item_active a {
-  font-size: 12px;
-  color: white;
 }
 body div.home_container div.right {
   width: 100%;
@@ -359,6 +354,10 @@ body div.shopping .shopping-cart-detail .cart-button {
   height: 10%;
   text-align: center;
 }
+body div.cart-container span.cart-op * {
+  font-size: 30px;
+  line-height: 30px;
+}
 body .shopping-cart-check {
   border-radius: 10px;
   width: 80%;
@@ -453,9 +452,34 @@ body .profile .order .item .weui_tabbar_label {
   color: #04BE02;
   font-size: 15px;
 }
+body div.cart-submit {
+  width: 100%;
+  position: fixed;
+  padding: 5px 10px;
+  bottom: 40px;
+  background: rgba(191, 64, 64, 0.5);
+}
+body div.cart-submit * {
+  color: white;
+}
+body div.cart-submit .weui_btn {
+  display: inline-block;
+  padding: 2px 5px;
+  margin: 0;
+}
 body div.profile-container {
   margin-top: 50px;
 }
 body div.profile-container .weui_panel_bd {
   padding-top: 1px;
+}
+body div.bar {
+  height: 50px;
+  background: #56bb36;
+  text-align: center;
+  font-size: 30px;
+  color: white;
+}
+body div.bar * {
+  color: white;
 }
