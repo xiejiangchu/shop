@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ShoppingCart extends Model
+class Cart extends Model
 {
-    protected $table    = 'shopping_cart';
+    protected $table    = 'cart';
     public $timestamps  = true;
     protected $fillable = ['gid', 'uid', 'amount'];
     protected $guarded  = [];

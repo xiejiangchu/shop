@@ -3,6 +3,9 @@ body {
 
     我的页面
     */
+  /*
+    address
+     */
 }
 body .auth-header {
   padding: 35px 0;
@@ -25,6 +28,12 @@ body .auth-header .auth-second-title {
   color: #3cc51f;
   font-weight: 400;
   margin: 0 15%;
+}
+body .text-center {
+  text-align: center;
+}
+body .text-center * {
+  margin: 0 auto;
 }
 body .help-block {
   color: red;
@@ -354,9 +363,15 @@ body div.shopping .shopping-cart-detail .cart-button {
   height: 10%;
   text-align: center;
 }
+body div.cart-container {
+  max-width: 100%;
+}
 body div.cart-container span.cart-op * {
   font-size: 30px;
   line-height: 30px;
+}
+body div.cart-container .weui_media_box:before {
+  left: 0;
 }
 body .shopping-cart-check {
   border-radius: 10px;
@@ -452,20 +467,33 @@ body .profile .order .item .weui_tabbar_label {
   color: #04BE02;
   font-size: 15px;
 }
-body div.cart-submit {
+body div.cart-submit-container {
+  max-width: 100%;
   width: 100%;
   position: fixed;
-  padding: 5px 10px;
   bottom: 40px;
   background: rgba(191, 64, 64, 0.5);
 }
-body div.cart-submit * {
+body div.cart-submit-container * {
   color: white;
+  text-align: center;
+  height: 100%;
 }
-body div.cart-submit .weui_btn {
+body div.cart-submit-container .cart-total,
+body div.cart-submit-container .cart-clear,
+body div.cart-submit-container .cart-submit {
   display: inline-block;
-  padding: 2px 5px;
+  float: right;
+  padding: 10px 2px;
   margin: 0;
+  font-style: normal;
+  font-weight: bold;
+}
+body div.cart-submit-container .cart-clear {
+  background: red;
+}
+body div.cart-submit-container .cart-submit {
+  background: #56bb36;
 }
 body div.profile-container {
   margin-top: 50px;
@@ -474,12 +502,37 @@ body div.profile-container .weui_panel_bd {
   padding-top: 1px;
 }
 body div.bar {
-  height: 50px;
+  height: 40px;
   background: #56bb36;
   text-align: center;
-  font-size: 30px;
+  font-size: 25px;
   color: white;
 }
 body div.bar * {
   color: white;
+}
+body .car-empty {
+  margin-top: 30%;
+}
+body .car-empty .button_sp_area {
+  text-align: center;
+}
+body div.address .weui_media_box {
+  padding-right: 30px;
+}
+body div.address .weui_media_box .weui_media_title {
+  margin: 0;
+}
+body div.address .phone {
+  margin-left: 30px;
+}
+body div.address .address-default {
+  position: absolute;
+  right: 10px;
+  top: 45%;
+  font-size: 20px;
+  color: #aaa;
+}
+body div.address .active {
+  color: #56bb36;
 }

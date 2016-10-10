@@ -17,13 +17,13 @@ class CreateSysConfigTable extends Migration
     {
         Schema::create('sys_config', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('commany_name');
-            $table->string('commany_tel');
-            $table->string('commany_email');
-            $table->string('commany_phone');
-            $table->string('commany_address');
-            $table->string('commany_logo');
-            $table->string('commany_slogan');
+            $table->string('commany_name', 20);
+            $table->string('commany_tel', 20);
+            $table->string('commany_email', 20);
+            $table->string('commany_phone', 20);
+            $table->string('commany_address', 20);
+            $table->string('commany_logo', 50);
+            $table->string('commany_slogan', 30);
             $table->decimal('min_order', 10, 2);
             $table->decimal('deliver_fee', 10, 2);
             $table->timestamps();

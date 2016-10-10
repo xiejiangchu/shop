@@ -6,17 +6,25 @@
 
 @section('content')
 
+ <div class="weui-pull-to-refresh-layer">
+    <div class='pull-to-refresh-arrow'></div>
+    <div class='pull-to-refresh-preloader'></div>
+    <div class="down">下拉刷新</div>
+    <div class="up">释放刷新</div>
+    <div class="refresh">正在刷新</div>
+</div>
+
 <header class='check-header'>
   <h1 class="check-title">订单信息</h1>
 </header>
 
 <div class="weui_cells weui_cells_form">
 <div class="weui_cell">
-        <div class="weui_cell_hd"><label class="weui_label">地址</label></div>
-        <div class="weui_cell_bd weui_cell_primary">
-          <input class="weui_input" type="tel" placeholder="配送地址">
-        </div>
-      </div>
+    <div class="weui_cell_hd"><label class="weui_label">地址</label></div>
+    <div class="weui_cell_bd weui_cell_primary">
+      <input class="weui_input" type="tel" placeholder="配送地址">
+    </div>
+  </div>
  <div class="weui_cell">
     <div class="weui_cell_hd"><label for="" class="weui_label">日期</label></div>
     <div class="weui_cell_bd weui_cell_primary">
@@ -114,6 +122,12 @@
 
 @section('init_js')
     <script type="text/javascript" charset="utf-8">
+      $(document.body).pullToRefresh().on("pull-to-refresh", function() {
+        setTimeout(function() {
+          $(document.body).pullToRefreshDone();
+        }, 2000);
+      });
+
       $("#date").calendar({
           onChange: function(p, values, displayValues) {
               console.log(values, displayValues);

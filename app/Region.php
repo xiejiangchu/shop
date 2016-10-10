@@ -10,4 +10,9 @@ class Region extends Model
     public $timestamps  = true;
     protected $fillable = [];
     protected $guarded  = [];
+
+    public function scopeOpen($query)
+    {
+        return $query->where('is_open', 1);
+    }
 }

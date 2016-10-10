@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Address;
+use App\Region;
+use DB;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
@@ -12,10 +14,11 @@ class AddressController extends Controller
     protected function validateItem(Request $request)
     {
         $this->validate($request, [
-            'mobile'        => 'required|alpha_dash|max:20',
-            'name_contract' => 'required|string',
-            'region_id'     => 'required|numberic',
-            'address'       => 'required|string',
+            'mobile'   => 'required|alpha_dash|max:20',
+            'receiver' => 'required|string',
+            'district' => 'required|string',
+            'road'     => 'required|string',
+            'address'  => 'required|string',
         ]);
     }
     /**
@@ -25,7 +28,7 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $paginate = Address::paginate(self::PAGE_SIZE);
+        $paginate = Address::where('uid', self::getUid())->paginate(self::PAGE_SIZE);
         return view('address.index', [
             'paginate' => $paginate,
         ]);
@@ -38,9 +41,20 @@ class AddressController extends Controller
      */
     public function create()
     {
-
+        $regions   = Region::open()->get();
+        $districts = [];
+        $roads     = [];
+        foreach ($regions as $key => $region) {
+            if (!in_array($region->district, $districts)) {
+                $districts[] = $region->district;
+            }
+            $roads[] = $region->road;
+        }
         return view('address.create', [
-
+            'district'  => $districts[0],
+            'road'      => $roads[0],
+            'roads'     => json_encode($roads, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE),
+            'districts' => json_encode($districts, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE),
         ]);
     }
 
@@ -52,7 +66,21 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateItem($request);
+        DB::table('address')
+            ->where('uid', self::getUid())
+            ->update(['default' => 0]);
+        $item = Address::create([
+            'uid'      => self::getUid(),
+            'default'  => 1,
+            'mobile'   => $request['mobile'],
+            'receiver' => $request['receiver'],
+            'city'     => '宜春',
+            'district' => $request['district'],
+            'road'     => $request['road'],
+            'address'  => $request['address'],
+        ]);
+        return redirect()->route('address.index');
     }
 
     /**
@@ -63,7 +91,7 @@ class AddressController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect()->route('address.index');
     }
 
     /**
@@ -74,7 +102,27 @@ class AddressController extends Controller
      */
     public function edit($id)
     {
-        //
+        $regions   = Region::open()->get();
+        $districts = [];
+        $roads     = [];
+        foreach ($regions as $key => $region) {
+            if (!in_array($region->district, $districts)) {
+                $districts[] = $region->district;
+            }
+            $roads[] = $region->road;
+        }
+        $item = Address::find($id);
+        if (empty($item)) {
+            return redirect()->route('address.index');
+        }
+        DB::table('address')
+            ->where('uid', $item->uid)
+            ->update(['default' => 0]);
+        return view('address.edit', [
+            'item'      => $item,
+            'roads'     => json_encode($roads, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE),
+            'districts' => json_encode($districts, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE),
+        ]);
     }
 
     /**
@@ -86,7 +134,26 @@ class AddressController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validateItem($request);
+        $item = Address::find($id);
+        if (empty($item)) {
+            return redirect()->route('address.index');
+        }
+        DB::table('address')
+            ->where('uid', $item->uid)
+            ->update(['default' => 0]);
+        $item->forceFill([
+            'uid'      => self::getUid(),
+            'default'  => 1,
+            'mobile'   => $request['mobile'],
+            'receiver' => $request['receiver'],
+            'city'     => '宜春',
+            'district' => $request['district'],
+            'road'     => $request['road'],
+            'address'  => $request['address'],
+        ]);
+        $item->save();
+        return redirect()->route('address.index');
     }
 
     /**
@@ -97,6 +164,8 @@ class AddressController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Address::find($id);
+        $item->delete();
+        return response('success');
     }
 }

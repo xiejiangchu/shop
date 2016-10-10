@@ -30,7 +30,10 @@ Route::get('/order', ['as' => 'order', 'uses' => 'HomeController@order']);
 Route::get('/profile', ['as' => 'profile', 'uses' => 'HomeController@profile']);
 
 Route::any('/category/{cat1}/{cat2?}/{page?}', ['as' => 'category', 'uses' => 'HomeController@category']);
-Route::resource('address', 'AddressController', ['middleware' => ['auth', 'role:person']]);
+
+Route::group(['middleware' => ['auth', 'role:person']], function () {
+    Route::resource('address', 'AddressController');
+});
 
 Route::group(['prefix' => 'cart', 'middleware' => ['auth', 'role:person']], function () {
     Route::any('/add', ['as' => 'cart.add', 'uses' => 'ShoppingCartController@add']);

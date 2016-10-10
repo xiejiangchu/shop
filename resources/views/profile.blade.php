@@ -34,7 +34,7 @@
   </div>
 
    <div class="profile-row order">
-        <a href="{{route('home')}}" class="item">
+        <a href="{{route('order')}}" class="item">
             <div class="weui_tabbar_icon">
                 <i class="fa fa-credit-card"></i>
             </div>

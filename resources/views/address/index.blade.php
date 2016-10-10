@@ -8,23 +8,27 @@
 @section('content')
  <div class="bar">
    <div class="weui-row weui-no-gutter">
-      <div class="weui-col-20"><i class="fa fa-arrow-left"></i></div>
+      <div class="weui-col-20"><a href="javascript:history.back(-1)"><i class="fa fa-angle-left"></i></a></div>
       <div class="weui-col-50">我的地址</div>
-      <div class="weui-col-20"><a href="{{route('address.create')}}"><i class="fa fa-plus"></i></a></div>
+      <div class="weui-col-20"><a href="{{route('address.create')}}"><i class="fa fa-plus-square-o"></i></a></div>
     </div>
  </div>
 
  <div class="address">
    <div class="weui_panel weui_panel_access">
     <div class="weui_panel_bd">
-      <div class="weui_media_box weui_media_text">
-        <h4 class="weui_media_title">标题一</h4>
-        <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+      @foreach($paginate as $key => $item)
+        <div class="weui_media_box weui_media_text" edit-url='{{route('address.edit',$item->id)}}' del-url='{{route('address.destroy',$item->id)}}'>
+        <h4 class="weui_media_title">
+        {{$item->receiver}} <i class="fa fa-phone phone">{{$item->mobile}}</i>
+        </h4>
+        <p class='weui_media_desc'>{{$item->city.$item->district.$item->road}}</p>
+        <p class="weui_media_desc">{{$item->address}}</p>
+        <p class="address-default">
+          <i class="fa fa-check-square-o {{$item->default?'active':""}}"></i>
+        </p>
       </div>
-      <div class="weui_media_box weui_media_text">
-        <h4 class="weui_media_title">标题二</h4>
-        <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-      </div>
+      @endforeach
     </div>
   </div>
  </div>
@@ -34,29 +38,46 @@
 
 @section('init_js')
     <script type="text/javascript" charset="utf-8">
-       $(document).on("click", ".weui_media_box", function() {
-        $.actions({
-          title: "选择操作",
-          onClose: function() {
-            console.log("close");
-          },
-          actions: [
-            {
-              text: "编辑",
-              className: "color-primary",
-              onClick: function() {
-                $.alert("你选择了“编辑”");
-              }
-            },
-            {
-              text: "删除",
-              className: 'color-danger',
-              onClick: function() {
-                $.alert("你选择了“删除”");
-              }
-            }
-          ]
-        });
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+      $(document).on("click",".address-default",function(){
+         $.confirm("您确定把该地址设置为默认地址？", "确认?", function() {
+            $.post(del_url, {"_method": 'delete'}, function(data, textStatus, xhr) {
+             $(e.currentTarget).remove();
+            });
+          }, function() {
+              //取消操作
+          });
+      });
+       $(document).on("click", ".weui_media_box", function(e) {
+          var edit_url = $(e.currentTarget).attr('edit-url');
+          var del_url= $(e.currentTarget).attr('del-url');
+          $.actions({
+              title: "选择操作",
+              onClose: function() {},
+              actions: [{
+                  text: "编辑",
+                  className: "color-primary",
+                  onClick: function(e) {
+                      window.location.href = edit_url;
+                  }
+              }, {
+                  text: "删除",
+                  className: 'color-danger',
+                  onClick: function() {
+                      $.confirm("您确定删除该条记录？", "确认删除?", function() {
+                        $.post(del_url, {"_method": 'delete'}, function(data, textStatus, xhr) {
+                         $(e.currentTarget).remove();
+                        });
+                      }, function() {
+                          //取消操作
+                      });
+                  }
+              }]
+          });
       });
     </script>
 @stop

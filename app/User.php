@@ -30,6 +30,6 @@ class User extends Authenticatable
 
     public function shoppingCartGoods()
     {
-        return $this->belongsToMany('App\Goods', 'shopping_cart', 'uid', 'gid')->withPivot('uid', 'gid', 'amount');
+        return $this->belongsToMany('App\Goods', 'cart', 'uid', 'gid')->withPivot('uid', 'gid', 'amount');
     }
 }

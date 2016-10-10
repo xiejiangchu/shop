@@ -126,6 +126,12 @@ body {
             margin: 0 15%;
         }
     }
+    .text-center{
+        text-align: center;
+        *{
+            margin: 0 auto;
+        }
+    }
     .help-block {
         color: red;
     }
@@ -440,11 +446,15 @@ body {
         }
     }
     div.cart-container {
+        max-width: 100%;
         span.cart-op {
             * {
                 font-size: 30px;
                 line-height: 30px;
             }
+        }
+        .weui_media_box:before {
+            left: 0;
         }
     }
     .shopping-cart-check {
@@ -542,19 +552,32 @@ body {
             }
         }
     }
-    div.cart-submit {
+    div.cart-submit-container {
+        max-width: 100%;
         width: 100%;
         position: fixed;
-        padding: 5px 10px;
         bottom: 40px;
         background: hsla(360, 50%, 50%, .5);
         * {
             color: white;
+            text-align: center;
+            height: 100%;
         }
-        .weui_btn {
+        .cart-total,
+        .cart-clear,
+        .cart-submit {
             display: inline-block;
-            padding: 2px 5px;
+            float: right;
+            padding: 10px 2px;
             margin: 0;
+            font-style: normal;
+            font-weight: bold;
+        }
+        .cart-clear {
+            background: red;
+        }
+        .cart-submit {
+            background: @primary-color;
         }
     }
     div.profile-container {
@@ -564,13 +587,43 @@ body {
         }
     }
     div.bar {
-        height: 50px;
+        height: 40px;
         background: @primary-color;
         text-align: center;
-        font-size: 30px;
+        font-size: 25px;
         color: white;
         * {
             color: white;
+        }
+    }
+    .car-empty {
+        margin-top: 30%;
+        .button_sp_area {
+            text-align: center;
+        }
+    }
+    /*
+    address
+     */
+    div.address {
+        .weui_media_box {
+            padding-right: 30px;
+            .weui_media_title {
+                margin: 0;
+            }
+        }
+        .phone {
+            margin-left: 30px;
+        }
+        .address-default {
+            position: absolute;
+            right: 10px;
+            top: 45%;
+            font-size: 20px;
+            color: @color-grey;
+        }
+        .active {
+            color: @primary-color;
         }
     }
 }

@@ -7,73 +7,48 @@
 
 @section('content')
   <header class="auth-header">
-      <h1 class="auth-title">新增地址</h1>
+      <h1 class="auth-title">修改地址</h1>
       <p class="auth-sub-title"></p>
   </header>
  <div class="weui_cells weui_cells_form">
-  <form method="POST" action="{{ route('address.store')}}">
-      {{ csrf_field() }}
+  <form method="POST" action="{{ route('address.update',$item->id)}}">
+    <input type="hidden" value="{{csrf_token()}}" name="_token">
+    <input type="hidden" value="PUT" name="_method">
     <div class="weui_cell">
       <div class="weui_cell_hd"><label for="name" class="weui_label">手机</label></div>
       <div class="weui_cell_bd weui_cell_primary">
-        <input class="weui_input" id="mobile" name=mobile type="text" value="">
+        <input class="weui_input" id="mobile" name=mobile type="text" value="{{$item->mobile}}">
       </div>
     </div>
     <div class="weui_cell">
       <div class="weui_cell_hd"><label for="name" class="weui_label">联系人</label></div>
       <div class="weui_cell_bd weui_cell_primary">
-        <input class="weui_input" id="receiver" name='receiver' type="text" value="">
+        <input class="weui_input" id="receiver" name='receiver' type="text" value="{{$item->receiver}}">
       </div>
     </div>
     <div class="weui_cell">
       <div class="weui_cell_hd"><label for="name" class="weui_label">区县</label></div>
       <div class="weui_cell_bd weui_cell_primary">
-        <input class="weui_input" id="district" name='district' type="text" value="{{$district}}">
+        <input class="weui_input" id="district" name='district' type="text" value="{{$item->district}}">
       </div>
     </div>
     <div class="weui_cell">
       <div class="weui_cell_hd"><label for="name" class="weui_label">街道</label></div>
       <div class="weui_cell_bd weui_cell_primary">
-        <input class="weui_input" id="road" name='road' type="text" value="{{$road}}">
+        <input class="weui_input" id="road" name='road' type="text" value="{{$item->road}}">
       </div>
     </div>
     <div class="weui_cell">
       <div class="weui_cell_bd weui_cell_primary">
-        <textarea class="weui_textarea" placeholder="详细地址" rows="3" id="address" name='address'></textarea>
+        <textarea class="weui_textarea" placeholder="详细地址" rows="3" id="address" name='address'>
+          {{$item->address}}
+        </textarea>
         <div class="weui_textarea_counter"><span>0</span>/100</div>
       </div>
     </div>
   </div>
-
-  <div class="weui_cell text-center">
-  @if ($errors->has('mobile'))
-        <span class="help-block">
-            <strong>{{ $errors->first('mobile') }}</strong>
-        </span>
-    @endif
-     @if ($errors->has('receiver'))
-      <span class="help-block">
-          <strong>{{ $errors->first('receiver') }}</strong>
-      </span>
-      @endif
-       @if ($errors->has('district'))
-      <span class="help-block">
-          <strong>{{ $errors->first('district') }}</strong>
-      </span>
-      @endif
-       @if ($errors->has('road'))
-      <span class="help-block">
-          <strong>{{ $errors->first('road') }}</strong>
-      </span>
-      @endif
-       @if ($errors->has('address'))
-      <span class="help-block">
-          <strong>{{ $errors->first('address') }}</strong>
-      </span>
-      @endif
- </div>
  <div class="weui_btn_area">
-  <button class="weui_btn weui_btn_primary" href="javascript:" type='submit' id="showTooltips">添加地址</button>
+  <button class="weui_btn weui_btn_primary" href="javascript:" type='submit' id="showTooltips">提交</button>
 </div>
   </form>
 

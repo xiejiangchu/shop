@@ -17,6 +17,7 @@ class CreateBonusTypeTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('desc');
+            $table->boolean('is_enable')->default(1);
             $table->decimal('min_amount', 10, 2)->defalut(0);
             $table->dateTime('start')->nullable();
             $table->dateTime('end')->nullable();

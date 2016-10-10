@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\ShoppingCart;
+use App\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -19,7 +19,7 @@ class ShoppingCartController extends Controller
     public function add(Request $request)
     {
         $this->validateData($request);
-        $cart_goods = ShoppingCart::firstOrCreate([
+        $cart_goods = Cart::firstOrCreate([
             'gid' => $request['gid'],
             'uid' => self::getUid(),
         ]);
@@ -35,7 +35,7 @@ class ShoppingCartController extends Controller
     public function sub(Request $request)
     {
         $this->validateData($request);
-        $cart_goods = ShoppingCart::firstOrCreate([
+        $cart_goods = Cart::firstOrCreate([
             'gid' => $request['gid'],
             'uid' => self::getUid(),
         ]);
@@ -96,7 +96,7 @@ class ShoppingCartController extends Controller
 
     public function clear()
     {
-        $affectedRows = ShoppingCart::where('uid', self::getUid())->delete();
+        $affectedRows = Cart::where('uid', self::getUid())->delete();
         return view('cart', [
             "total" => 0,
             "cart"  => new Collection,

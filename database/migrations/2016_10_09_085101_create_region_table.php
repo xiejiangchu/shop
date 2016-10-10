@@ -15,8 +15,12 @@ class CreateRegionTable extends Migration
     {
         Schema::create('region', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('city');
+            $table->string('province', 20);
+            $table->string('city', 20);
             $table->string('district', 50);
+            $table->string('road', 50);
+            $table->boolean('is_open')->default(1);
+            $table->integer('order')->unsinged();
             $table->timestamps();
         });
     }

@@ -8,36 +8,51 @@
 @section('content')
 @if(!$cart->isEmpty())
 <div class="cart-container weui_panel_bd">
-	@foreach($cart as $good)
-	<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
-	  <div class="weui_media_hd">
-	    <img class="weui_media_appmsg_thumb" src="{{$good->thumb}}" alt="">
-	  </div>
-	  <div class="weui_media_bd">
-	    <h4 class="weui_media_title">{{$good->name}}</h4>
-	    <p class="weui_media_desc">{{$good->summary}}</p>
-	    <p class="weui_media_desc">{{$good->shop_price}}/{{$good->unit}}</p>
-
-	  </div>
-  	 <span class="cart-op">
+  @foreach($cart as $good)
+  <div class="weui_media_box weui_media_appmsg">
+    <div class="weui_media_hd">
+      <img class="weui_media_appmsg_thumb" src="{{$good->thumb}}" alt="">
+    </div>
+    <div class="weui_media_bd">
+      <h4 class="weui_media_title">{{$good->name}}</h4>
+      <p class="weui_media_desc">{{$good->summary}}</p>
+      <p class="weui_media_desc">{{$good->shop_price}}/{{$good->unit}}</p>
+    </div>
+     <span class="cart-op">
         <i class="cart_sub fa fa-minus-circle color-error" gid='{{$good->id}}'></i>
         <span id='goods_{{$good->id}}'>{{$good->pivot->amount}}</span>
         <i class="cart_add fa fa-plus-circle color-primary" gid='{{$good->id}}'></i>
     </span>
-	</a>
-	@endforeach
+  </div>
+  @endforeach
+</div>
+@else
+<div class="car-empty">
+  <article class="weui_article">
+    <section>
+      <p><img src="/img/cart_empty.png" alt=""></p>
+      <div class="button_sp_area">
+        <a href="{{route('home')}}" class="weui_btn weui_btn_mini weui_btn_primary">去逛逛吧</a>
+      </div>
+    </section>
+  </article>
 </div>
 
 @endif
 
-	<div class="cart-submit weui-row weui-no-gutter">
-      <div class="weui-col-50">订单：{{$total}}</div>
-      <div class="weui-col-50">
-        <a href="{{route('cart.clear')}}" class="weui_btn weui_btn_primary weui_btn_mini"><i class="fa fa-trash">清空</i></a>
-           <a href="{{route('cart.calc')}}" class="weui_btn weui_btn_primary weui_btn_mini">结算</a>
-     </div>
-
+@if($total>0)
+<div class="cart-submit-container weui-row weui-no-gutter">
+ <div class="weui-col-50 cart-total" >订单：{{$total}}</div>
+ <div class="weui-row weui-no-gutter">
+   <div class="cart-clear weui-col-50">
+      <a href="{{route('cart.clear')}}"><i class="fa fa-trash">清空</i></a>
     </div>
+    <div class="cart-submit weui-col-50">
+      <a href="{{route('cart.calc')}}"><i class="fa fa-trash">结算</i></a>
+    </div>
+ </div>
+</div>
+@endif
 @stop
 
 @section('footer')
