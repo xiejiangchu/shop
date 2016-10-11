@@ -24,7 +24,7 @@
         </h4>
         <p class='weui_media_desc'>{{$item->city.$item->district.$item->road}}</p>
         <p class="weui_media_desc">{{$item->address}}</p>
-        <p class="address-default">
+        <p class="address-default" default-id='{{$item->id}}'>
           <i class="fa fa-check-square-o {{$item->default?'active':""}}"></i>
         </p>
       </div>
@@ -37,47 +37,51 @@
 
 
 @section('init_js')
-    <script type="text/javascript" charset="utf-8">
-      $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-      });
-      $(document).on("click",".address-default",function(){
-         $.confirm("您确定把该地址设置为默认地址？", "确认?", function() {
-            $.post(del_url, {"_method": 'delete'}, function(data, textStatus, xhr) {
-             $(e.currentTarget).remove();
-            });
-          }, function() {
-              //取消操作
-          });
-      });
-       $(document).on("click", ".weui_media_box", function(e) {
-          var edit_url = $(e.currentTarget).attr('edit-url');
-          var del_url= $(e.currentTarget).attr('del-url');
-          $.actions({
-              title: "选择操作",
-              onClose: function() {},
-              actions: [{
-                  text: "编辑",
-                  className: "color-primary",
-                  onClick: function(e) {
-                      window.location.href = edit_url;
-                  }
-              }, {
-                  text: "删除",
-                  className: 'color-danger',
-                  onClick: function() {
-                      $.confirm("您确定删除该条记录？", "确认删除?", function() {
-                        $.post(del_url, {"_method": 'delete'}, function(data, textStatus, xhr) {
-                         $(e.currentTarget).remove();
-                        });
-                      }, function() {
-                          //取消操作
-                      });
-                  }
-              }]
-          });
-      });
-    </script>
+<script type="text/javascript" charset="utf-8">
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+$(document).on("click", ".address-default", function(e) {
+    var id = $(e.currentTarget).attr('default-id');
+    $.confirm("您确定把该地址设置为默认地址？", "确认?", function() {
+        $.post('{{route('address.default')}}', {'id':id }, function(data, textStatus, xhr) {
+          $('.active').removeClass('active');
+          $(e.currentTarget).toggleClass('active');
+
+        });
+    }, function() {
+        //取消操作
+    });
+    return false;
+});
+$(document).on("click", ".weui_media_box", function(e) {
+    var edit_url = $(e.currentTarget).attr('edit-url');
+    var del_url = $(e.currentTarget).attr('del-url');
+    $.actions({
+        title: "选择操作",
+        onClose: function() {},
+        actions: [{
+            text: "编辑",
+            className: "color-primary",
+            onClick: function(e) {
+                window.location.href = edit_url;
+            }
+        }, {
+            text: "删除",
+            className: 'color-danger',
+            onClick: function() {
+                $.confirm("您确定删除该条记录？", "确认删除?", function() {
+                    $.post(del_url, { "_method": 'delete' }, function(data, textStatus, xhr) {
+                        $(e.currentTarget).remove();
+                    });
+                }, function() {
+                    //取消操作
+                });
+            }
+        }]
+    });
+});
+</script>
 @stop

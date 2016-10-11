@@ -10,11 +10,11 @@ class OrderController extends Controller
     protected function validateData(Request $request)
     {
         $this->validate($request, [
-            'address_id'      => 'required|numeric|min:0',
-            'bonus_id'        => 'required|numeric|min:0',
-            'best_time_start' => 'required|datetime|min:0',
-            'best_time_end'   => 'required|datetime|min:0',
-            'payment'         => 'required|numeric|min:0',
+            'address_id' => 'required|numeric|min:0',
+            'bonus_id'   => 'required|numeric|min:0',
+            'send_time'  => 'required|datetime|min:0',
+            'payment'    => 'required|numeric|min:0',
+            'message'    => 'string',
         ]);
     }
     /**
@@ -24,7 +24,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return view('order');
     }
 
     /**
@@ -89,6 +89,21 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
+    {
+        //
+    }
+
+    public function unpaid()
+    {
+        //
+    }
+
+    public function unship()
+    {
+        //
+    }
+
+    public function history()
     {
         //
     }

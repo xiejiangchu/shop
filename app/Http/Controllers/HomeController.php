@@ -62,11 +62,6 @@ class HomeController extends Controller
         ]);
     }
 
-    public function order()
-    {
-        return view('order');
-    }
-
     public function profile()
     {
         return view('profile');

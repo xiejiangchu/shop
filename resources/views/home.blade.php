@@ -48,10 +48,8 @@
 
 <div class="filter-container">
     <div class="weui-row weui-no-gutter">
-      <a href="{{url()}}">
         <div id='filter-category' class="weui-col-33">名称排序<i class="fa fa-angle-right"></i>
       </div>
-      </a>
       <div id='filter-orderby' class="weui-col-33">销量排序<i class="fa fa-angle-right"></i></div>
       <div id='filter-price' class="weui-col-33">价格排序<i class="fa fa-angle-right"></i></div>
     </div>
@@ -122,7 +120,7 @@
      <a href="{{route('cart.cart')}}" class="weui_tabbar_item">
       <p class="weui_tabbar_label"><i class="fa fa-search"></i>购物车</p>
     </a>
-    <a href="{{route('order')}}" class="weui_tabbar_item">
+    <a href="{{route('order.index')}}" class="weui_tabbar_item">
       <p class="weui_tabbar_label"><i class="fa fa-history"></i>订单</p>
     </a>
     <a href="{{route('profile')}}" class="weui_tabbar_item">

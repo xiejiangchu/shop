@@ -7,6 +7,16 @@ body {
     address
      */
 }
+body div.fade {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(120, 120, 120, 0.8);
+  display: none;
+  z-index: 100;
+}
 body .auth-header {
   padding: 35px 0;
 }
@@ -535,4 +545,13 @@ body div.address .address-default {
 }
 body div.address .active {
   color: #56bb36;
+}
+body .fee {
+  color: black;
+}
+body .fee .fee-num {
+  float: right;
+  text-align: right;
+  color: red;
+  font-weight: bold;
 }

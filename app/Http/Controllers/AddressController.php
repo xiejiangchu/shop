@@ -168,4 +168,19 @@ class AddressController extends Controller
         $item->delete();
         return response('success');
     }
+
+    function default(Request $request) {
+        $item = Address::find($request['id']);
+        if (empty($item)) {
+            return redirect()->route('address.index');
+        }
+        DB::table('address')
+            ->where('uid', $item->uid)
+            ->update(['default' => 0]);
+        $item->forceFill([
+            'default' => 1,
+        ]);
+        $item->save();
+        return redirect()->route('address.index');
+    }
 }

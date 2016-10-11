@@ -28,6 +28,21 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function scopeUnlocked($query)
+    {
+        return $query->where('lock', 0);
+    }
+
+    public function scopeLocked($query)
+    {
+        return $query->where('lock', 1);
+    }
+
+    public function scopeVerified($query)
+    {
+        return $query->where('verified', 1);
+    }
+
     public function shoppingCartGoods()
     {
         return $this->belongsToMany('App\Goods', 'cart', 'uid', 'gid')->withPivot('uid', 'gid', 'amount');

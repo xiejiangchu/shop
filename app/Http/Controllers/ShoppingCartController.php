@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Address;
 use App\Cart;
+use App\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -105,10 +107,39 @@ class ShoppingCartController extends Controller
 
     public function calc(Request $request)
     {
-        $cart_goods = self::getUser()->shoppingCartGoods()->get();
+        $cart_goods     = self::getUser()->shoppingCartGoods()->get();
+        $address        = Address::where('uid', self::getUid())->get();
+        $addressDefault = Address::where('uid', self::getUid())->where('default', 1)->first();
+        $payments       = Payment::enabled()->get();
 
+        $address_detail = [];
+        foreach ($address as $key => $item) {
+            $address_detail[] = $item->city . $item->district . $item->road . $item->address;
+        }
+
+        $total = self::calcMoney($cart_goods);
         return view('check', [
-            'cart_goods' => $cart_goods,
+            'cart_goods'     => $cart_goods,
+            'payments'       => $payments,
+            'address'        => json_encode($address_detail, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE),
+            'addressDefault' => $addressDefault,
+            'total'          => $total,
         ]);
+    }
+
+    public function calcMoney($cart_goods, $bonus = 0, $points = 0)
+    {
+        $total = [
+            'goods_total'    => 0,
+            'bonus_total'    => 0,
+            'order_total'    => 0,
+            'delivery_total' => 0,
+        ];
+        foreach ($cart_goods as $key => $item) {
+            $total['goods_total'] += $item->shop_price * $item->pivot->amount;
+            $total['order_total'] += $item->shop_price * $item->pivot->amount;
+        }
+
+        return $total;
     }
 }

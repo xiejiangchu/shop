@@ -4,6 +4,7 @@
 @color-success: #4cd964;
 @color-yellow: #FF4500;
 @color-grey: #aaa;
+@color-fade: rgba(120, 120, 120, 0.8);
 @primary-color: #56bb36;
 @border-color: #d9d9d9;
 @text-50: 50px;
@@ -104,6 +105,16 @@
 // isem(@emOrAnything); // 判断一个值是否是以em为单位的数值
 // isunit(@numberOrAnything, "rem"); // * 判断一个值是否是指定单位的数值
 body {
+    div.fade{
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background: @color-fade;
+        display: none;
+        z-index: 100;
+    }
     .auth-header {
         padding: 35px 0;
         .auth-title {
@@ -624,6 +635,15 @@ body {
         }
         .active {
             color: @primary-color;
+        }
+    }
+    .fee{
+        color:black;
+        .fee-num{
+            float:right;
+            text-align: right;
+            color:red;
+            font-weight: bold;
         }
     }
 }

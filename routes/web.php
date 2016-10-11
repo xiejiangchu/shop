@@ -26,13 +26,17 @@ Auth::routes();
 Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@home']);
 Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@home']);
-Route::get('/order', ['as' => 'order', 'uses' => 'HomeController@order']);
 Route::get('/profile', ['as' => 'profile', 'uses' => 'HomeController@profile']);
 
 Route::any('/category/{cat1}/{cat2?}/{page?}', ['as' => 'category', 'uses' => 'HomeController@category']);
 
 Route::group(['middleware' => ['auth', 'role:person']], function () {
     Route::resource('address', 'AddressController');
+    Route::post('/address/default', ['as' => 'address.default', 'uses' => 'AddressController@default']);
+    Route::resource('order', 'OrderController');
+    Route::get('/order/unpaid', ['as' => 'order.unpaid', 'uses' => 'OrderController@unpaid']);
+    Route::get('/order/unship', ['as' => 'order.unship', 'uses' => 'OrderController@unship']);
+    Route::get('/order/history', ['as' => 'order.history', 'uses' => 'OrderController@history']);
 });
 
 Route::group(['prefix' => 'cart', 'middleware' => ['auth', 'role:person']], function () {
