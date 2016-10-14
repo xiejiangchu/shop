@@ -14,7 +14,7 @@ class AddressController extends Controller
     protected function validateItem(Request $request)
     {
         $this->validate($request, [
-            'mobile'   => 'required|alpha_dash|max:20',
+            'mobile'   => 'required|regex:/^1[34578][0-9]{9}$/',
             'receiver' => 'required|string',
             'district' => 'required|string',
             'road'     => 'required|string',
@@ -169,7 +169,8 @@ class AddressController extends Controller
         return response('success');
     }
 
-    function default(Request $request) {
+    public function makedefault(Request $request)
+    {
         $item = Address::find($request['id']);
         if (empty($item)) {
             return redirect()->route('address.index');
@@ -181,6 +182,43 @@ class AddressController extends Controller
             'default' => 1,
         ]);
         $item->save();
-        return redirect()->route('address.index');
+        return self::success();
+    }
+
+    public function create2()
+    {
+        $regions   = Region::open()->get();
+        $districts = [];
+        $roads     = [];
+        foreach ($regions as $key => $region) {
+            if (!in_array($region->district, $districts)) {
+                $districts[] = $region->district;
+            }
+            $roads[] = $region->road;
+        }
+        return view('address.create2', [
+            'district'  => $districts[0],
+            'road'      => $roads[0],
+            'roads'     => json_encode($roads, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE),
+            'districts' => json_encode($districts, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE),
+        ]);
+    }
+    public function store2(Request $request)
+    {
+        $this->validateItem($request);
+        DB::table('address')
+            ->where('uid', self::getUid())
+            ->update(['default' => 0]);
+        $item = Address::create([
+            'uid'      => self::getUid(),
+            'default'  => 1,
+            'mobile'   => $request['mobile'],
+            'receiver' => $request['receiver'],
+            'city'     => '宜春',
+            'district' => $request['district'],
+            'road'     => $request['road'],
+            'address'  => $request['address'],
+        ]);
+        return self::success();
     }
 }

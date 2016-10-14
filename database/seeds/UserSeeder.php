@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
         }
 
         $person = Role::where('name', 'person')->first();
-        $users  = User::where('id', '>', '1')->get();
+        $users  = User::where('id', '>', '2')->get();
         foreach ($users as $key => $user) {
             $user->attachRole($person);
         }

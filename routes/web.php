@@ -31,8 +31,10 @@ Route::get('/profile', ['as' => 'profile', 'uses' => 'HomeController@profile']);
 Route::any('/category/{cat1}/{cat2?}/{page?}', ['as' => 'category', 'uses' => 'HomeController@category']);
 
 Route::group(['middleware' => ['auth', 'role:person']], function () {
+    Route::get('/address/create2', ['as' => 'address.create2', 'uses' => 'AddressController@create2']);
+    Route::post('/address/default', ['as' => 'address.default', 'uses' => 'AddressController@makedefault']);
+    Route::post('/address/store2', ['as' => 'address.store2', 'uses' => 'AddressController@store2']);
     Route::resource('address', 'AddressController');
-    Route::post('/address/default', ['as' => 'address.default', 'uses' => 'AddressController@default']);
     Route::resource('order', 'OrderController');
     Route::get('/order/unpaid', ['as' => 'order.unpaid', 'uses' => 'OrderController@unpaid']);
     Route::get('/order/unship', ['as' => 'order.unship', 'uses' => 'OrderController@unship']);

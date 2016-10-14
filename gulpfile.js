@@ -34,6 +34,7 @@ elixir(mix => {
 gulp.task('app_less', function() {
     return gulp.src(['./resources/assets/less/app.less'])
         .pipe(less())
+        .pipe(cssmin())
         .pipe(autoprefixer())
         // .pipe(header("app"))
         .pipe(gulp.dest('./public/css/'));

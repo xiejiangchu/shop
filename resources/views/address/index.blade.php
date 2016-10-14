@@ -49,7 +49,6 @@ $(document).on("click", ".address-default", function(e) {
         $.post('{{route('address.default')}}', {'id':id }, function(data, textStatus, xhr) {
           $('.active').removeClass('active');
           $(e.currentTarget).toggleClass('active');
-
         });
     }, function() {
         //取消操作

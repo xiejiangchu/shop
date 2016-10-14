@@ -66,6 +66,15 @@ class RolePermissionSeeder extends Seeder
 
         // 'middleware' => ['ability:admin|owner,create-post|edit-user,true']
 
+        $user           = new User;
+        $user->name     = "管理员";
+        $user->mobile   = "15121030453";
+        $user->email    = "xiejiangchu@163.com";
+        $user->wx       = "xiejiangchu";
+        $user->verified = 1;
+        $user->password = bcrypt('123456');
+        $user->save();
+
         $test           = new User;
         $test->name     = "测试";
         $test->mobile   = "15121030452";
@@ -75,14 +84,6 @@ class RolePermissionSeeder extends Seeder
         $test->password = bcrypt('123456');
         $test->save();
 
-        $user           = new User;
-        $user->name     = "管理员";
-        $user->mobile   = "15121030453";
-        $user->email    = "xiejiangchu@163.com";
-        $user->wx       = "xiejiangchu";
-        $user->verified = 1;
-        $user->password = bcrypt('123456');
-        $user->save();
         $user  = User::find(1);
         $roles = trans('globals.roles');
         foreach ($roles as $key => $value) {

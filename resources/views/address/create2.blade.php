@@ -11,7 +11,7 @@
       <p class="auth-sub-title"></p>
   </header>
  <div class="weui_cells weui_cells_form">
-  <form method="POST" action="{{ route('address.store')}}">
+  <form id='address_form' method="POST" ajax="{{ route('address.store2')}}">
       {{ csrf_field() }}
     <div class="weui_cell">
       <div class="weui_cell_hd"><label for="name" class="weui_label">手机</label></div>
@@ -72,7 +72,7 @@
       @endif
  </div>
  <div class="weui_btn_area">
-    <button class="weui_btn weui_btn_primary" href="javascript:" type='submit' id="showTooltips">添加地址</button>
+    <button id='submit' class="weui_btn weui_btn_primary" href="javascript:" type='submit' id="showTooltips">添加地址</button>
   </div>
   </form>
 </div>
@@ -110,6 +110,31 @@
         onOpen: function() {
           console.log("open");
         },
+      });
+
+      $(document).on('click', '#submit', function(event) {
+        event.preventDefault();
+        /* Act on the event */
+        var ajaxCallUrl=$('#address_form').attr('ajax');
+        $.ajax({
+                cache: true,
+                type: "POST",
+                url:ajaxCallUrl,
+                data:$('#address_form').serialize(),// 你的formid
+                async: false,
+                error: function(request) {
+                    alert("Connection error");
+                },
+                success: function(data) {
+                  // history.back(-1):直接返回当前页的上一页，数据全部消息，是个新页面
+                  // history.go(-1):也是返回当前页的上一页，不过表单里的数据全部还在
+                  // history.back(0) 刷新 history.back(1) 前进 history.back(-1) 后退
+                  if(data&&data.status==0){
+                    // window.history.go(-1);
+                    self.location=document.referrer
+                  }
+                }
+            });
       });
     </script>
 @stop

@@ -38,11 +38,11 @@
       </div>
     </div>
     <div class="weui_cell">
-      <a href="{{route('address.create')}}"><label class="weui_label">添加地址</label></a>
+      <a href="{{route('address.create2')}}"><label class="weui_label">添加地址</label></a>
     </div>
     @else
     <div class="weui_cell">
-        <a href="{{route('address.create')}}"><label class="weui_label">添加地址</label></a>
+        <a href="{{route('address.create2')}}"><label class="weui_label">添加地址</label></a>
       </div>
     @endif
 
