@@ -67,6 +67,7 @@ class RegisterController extends Controller
             'name'     => $data['name'],
             'mobile'   => $data['mobile'],
             'password' => bcrypt($data['password']),
+            'verified' => 1,
         ]);
 
         $person = Role::where('name', 'person')->first();
