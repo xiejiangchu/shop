@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>检核</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <meta name="description" content="检核-移动工作站">
+    <base href="">
+
+    <!--<link rel="stylesheet" href="css/weui.css">-->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/app.css">
+    <script src="js/jsBridge.js"></script>
+    <!-- 1. Load libraries -->
+    <!-- Polyfill(s) for older browsers -->
+    <script src="lib/shim.min.js"></script>
+    <script src="lib/zone.min.js"></script>
+    <script src="lib/Reflect.min.js"></script>
+    <script src="lib/system.src.min.js"></script>
+    <!-- 2. Configure SystemJS -->
+    <script src="systemjs.config.js"></script>
+    <script>
+        System.import('app').catch(function (err) {
+            console.error(err);
+        });
+    </script>
+</head>
+<body>
+ <app></app>
+</body>
+</html>

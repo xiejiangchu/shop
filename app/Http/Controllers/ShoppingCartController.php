@@ -112,17 +112,20 @@ class ShoppingCartController extends Controller
         $addressDefault = Address::where('uid', self::getUid())->where('default', 1)->first();
         $payments       = Payment::enabled()->get();
 
-        $address_detail = [];
+        $addresslist = [];
+        $addressmap  = [];
         foreach ($address as $key => $item) {
-            $address_detail[] = $item->city . $item->district . $item->road . $item->address;
+            $addresslist[]         = '<span data-id=' . $item->id . '>' . $item->receiver . ' - ' . $item->mobile . ' - ' . $item->city . $item->district . $item->road . $item->address . '</span>';
+            $addressmap[$item->id] = $item;
         }
 
         $total = self::calcMoney($cart_goods);
         return view('check', [
             'cart_goods'     => $cart_goods,
             'payments'       => $payments,
-            'address'        => json_encode($address_detail, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE),
+            'addresslist'    => json_encode($addresslist, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE),
             'addressDefault' => $addressDefault,
+            'addressmap'     => json_encode($addressmap, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE),
             'total'          => $total,
         ]);
     }
@@ -130,14 +133,17 @@ class ShoppingCartController extends Controller
     public function calcMoney($cart_goods, $bonus = 0, $points = 0)
     {
         $total = [
-            'goods_total'    => 0,
+            'order_amount'   => 0,
+            'order_weight'   => 0,
+            'order_money'    => 0,
             'bonus_total'    => 0,
             'order_total'    => 0,
             'delivery_total' => 0,
         ];
         foreach ($cart_goods as $key => $item) {
-            $total['goods_total'] += $item->shop_price * $item->pivot->amount;
-            $total['order_total'] += $item->shop_price * $item->pivot->amount;
+            $total['order_amount'] += $item->pivot->amount;
+            $total['order_weight'] += $item->weight * $item->pivot->amount;
+            $total['order_money'] += $item->shop_price * $item->pivot->amount;
         }
 
         return $total;

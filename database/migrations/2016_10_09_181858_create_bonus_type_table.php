@@ -19,8 +19,8 @@ class CreateBonusTypeTable extends Migration
             $table->string('desc');
             $table->boolean('is_enable')->default(1);
             $table->decimal('min_amount', 10, 2)->defalut(0);
-            $table->dateTime('start')->nullable();
-            $table->dateTime('end')->nullable();
+            $table->dateTime('available_start')->nullable();
+            $table->dateTime('available_end')->nullable();
             $table->timestamps();
         });
     }

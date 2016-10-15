@@ -70,12 +70,12 @@
 		                <strong>{{ $errors->first('name') }}</strong>
 		            </span>
 		        	@endif
-	              	@if ($errors->has('mobile'))
+	              	@if ($errors->has('display_name'))
 		            <span class="help-block text-red">
 		                <strong>{{ $errors->first('display_name') }}</strong>
 		            </span>
 		        	@endif
-		         	@if ($errors->has('password'))
+		         	@if ($errors->has('description'))
 		            <span class="help-block text-red">
 		                <strong>{{ $errors->first('description') }}</strong>
 		            </span>

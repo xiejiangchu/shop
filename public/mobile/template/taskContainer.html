@@ -1,0 +1,43 @@
+<div class="tab">
+    <div class="navbar">
+        <div class='navbar_item' [ngClass]="{' bar_item_on': type==1}" (click)="toggleTab(1)">
+            待处理
+        </div>
+        <div class='navbar_item' [ngClass]="{' bar_item_on': type==2}" (click)="toggleTab(2)">
+            审核中
+        </div>
+        <div class='navbar_item' [ngClass]="{' bar_item_on': type==3}" (click)="toggleTab(3)">
+            已处理
+        </div>
+    </div>
+    <div class="tab_bd" *ngIf="type==1">
+        <div class="tab_bd_title">
+            <span class="left">
+                待处理
+            </span>
+            <span class="right">
+                3天不处理，将自动判罚
+            </span>
+        </div>
+       <task></task>
+    </div>
+    <div class="tab_bd" *ngIf="type==2">
+        <div class="tab_bd_title">
+            <span class="left">
+                审核中
+            </span>
+        </div>
+        <task></task>
+    </div>
+    <div class="tab_bd" *ngIf="type==3">
+        <div class="tab_bd_title">
+            <span class="left">
+                已处理
+            </span>
+            <span class="right">
+                申诉失败的还可申诉2次
+            </span>
+        </div>
+        <task></task>
+    </div>
+</div>

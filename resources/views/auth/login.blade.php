@@ -24,7 +24,7 @@
 		      <input class="weui_input" id="password" type="password" name="password" placeholder="请输入密码">
 		    </div>
 		  </div>
-		   <div class="weui_cell login-error">
+		   <div class="weui_cell text-center">
 		    @if ($errors->has('mobile'))
 	            <span class="help-block">
 	                <strong>{{ $errors->first('mobile') }}</strong>

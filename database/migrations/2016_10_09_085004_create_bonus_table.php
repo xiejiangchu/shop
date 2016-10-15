@@ -17,6 +17,7 @@ class CreateBonusTable extends Migration
             $table->increments('id');
             $table->integer('uid')->unsigned();
             $table->integer('type_id')->unsigned();
+            $table->decimal('money', 10, 2)->defalut(0);
             $table->string('name');
             $table->string('desc');
             $table->integer('category_id1')->nullable();
@@ -26,8 +27,6 @@ class CreateBonusTable extends Migration
             $table->boolean('is_enable')->default(1);
             $table->dateTime('begin');
             $table->dateTime('end');
-            $table->dateTime('available_start');
-            $table->dateTime('available_end');
             $table->timestamps();
         });
     }

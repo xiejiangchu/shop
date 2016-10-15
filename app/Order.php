@@ -11,6 +11,21 @@ class Order extends Model
     protected $fillable = [];
     protected $guarded  = [];
 
+    public function goods()
+    {
+        return $this->hasMany('App\OrderGoods', 'oid', 'id');
+    }
+
+    public function orderlog()
+    {
+        return $this->hasMany('App\OrderLog', 'oid', 'id');
+    }
+
+    public function syslog()
+    {
+        return $this->hasMany('App\Syslog', 'src_id', 'id');
+    }
+
     public function scopeConfirmed($query)
     {
         return $query->where('confirmed', 1);

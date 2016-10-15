@@ -35,10 +35,13 @@ Route::group(['middleware' => ['auth', 'role:person']], function () {
     Route::post('/address/default', ['as' => 'address.default', 'uses' => 'AddressController@makedefault']);
     Route::post('/address/store2', ['as' => 'address.store2', 'uses' => 'AddressController@store2']);
     Route::resource('address', 'AddressController');
-    Route::resource('order', 'OrderController');
+});
+
+Route::group(['middleware' => ['auth', 'role:person']], function () {
     Route::get('/order/unpaid', ['as' => 'order.unpaid', 'uses' => 'OrderController@unpaid']);
     Route::get('/order/unship', ['as' => 'order.unship', 'uses' => 'OrderController@unship']);
     Route::get('/order/history', ['as' => 'order.history', 'uses' => 'OrderController@history']);
+    Route::resource('order', 'OrderController');
 });
 
 Route::group(['prefix' => 'cart', 'middleware' => ['auth', 'role:person']], function () {

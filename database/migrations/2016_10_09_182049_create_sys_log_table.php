@@ -13,11 +13,11 @@ class CreateSysLogTable extends Migration
      */
     public function up()
     {
-        Schema::create('Syslog', function (Blueprint $table) {
+        Schema::create('sys_log', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type');
             $table->string('operator');
-            $table->string('link');
+            $table->string('src_id');
             $table->string('action');
             $table->string('details');
             $table->timestamps();
@@ -31,6 +31,6 @@ class CreateSysLogTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Syslog');
+        Schema::dropIfExists('sys_log');
     }
 }
