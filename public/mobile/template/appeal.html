@@ -5,25 +5,10 @@
             <div class="textarea_counter"><span>0</span>/200</div>
         </div>
         <div class="uploader_bd">
-            <ul class="uploader_files">
-                <li class="uploader_file" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)"></li>
-                <li class="uploader_file" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)"></li>
-                <li class="uploader_file" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)"></li>
-                <li class="uploader_file uploader_status" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)">
-                    <div class="uploader_status_content">
-                        <i class="icon_warn"></i>
-                    </div>
-                </li>
-                <li class="uploader_file uploader_status" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)">
-                    <div class="uploader_status_content">50%</div>
-                </li>
-            </ul>
-            <div class="uploader_input_wrp">
-                <input class="uploader_input" type="file" accept="image/*" multiple="">
-            </div>
+           <picture-select></picture-select>
         </div>
     </div>
-    <div class="cell cell-nopadding">
+    <div class="cell cell-nopadding" *ngFor="let item of list">
         <div class="content">
             <div class="content-bd">
                 <span class="name">录音证据</span>
@@ -32,24 +17,7 @@
             </div>
             <div class="content-hd">
                 <span class="key">房源信息</span>
-                <span class="value">银春小区－87-0301</span>
-            </div>
-            <div class="content-hd">
-                <span class="key">跟进时间</span>
-                <span class="value">2016年09月20 周二 16:35</span>
-            </div>
-        </div>
-    </div>
-    <div class="cell cell-nopadding">
-        <div class="content">
-            <div class="content-bd">
-                <span class="name">录音证据</span>
-                <span class="btn">删除</span>
-                <span class="btn">编辑</span>
-            </div>
-            <div class="content-hd">
-                <span class="key">房源信息</span>
-                <span class="value">银春小区－87-0301</span>
+                <span class="value">{{item.estateName+"-"+item.roomNo}}</span>
             </div>
             <div class="content-hd">
                 <span class="key">跟进时间</span>
@@ -60,17 +28,39 @@
 
     <div class="cell cell-nopadding">
         <div class="content">
-            <div class="content-bd" (click)="house()">
+            <div class="content-bd" (click)="recorder()">
                 ＋添加录音证据
             </div>
         </div>
     </div>
 
-    <div class="cell cell-nopadding cell-transparent text-right" (click)="house()">
+    <div class="cell cell-nopadding cell-transparent text-right" (click)="help()">
         <div class="content">
             <div class="content-bd">
                 申诉帮助
             </div>
+        </div>
+    </div>
+
+    <div class="recorder-mask" *ngIf="show_recorder">
+        <div class="recorder-container">
+            <p (click)="recorder_in_fy()">录音在房源跟进</p>
+            <p class="seperate"></p>
+            <p (click)="recorder_in_ky">录音在客源跟进</p>
+        </div>
+    </div>
+
+    <div class="appeal-help" *ngIf="show_help">
+        <div class="row">
+            1、其它经纪人通过咨询业主发现房源不符合出售/出租状态，进行了状态修改，此时会发送无效通知给有效出售/出租方。
+\n2、为了使房源变干净，状态更准确。检核部和系统会有一系列动作进行洗盘，具体如下：
+   \n\ta.系统将会针对那些没有联系人（即所有联系人都在已删除中）的房源发送无效通知，因为这些房源无有效联系号码，即没有联系人，就代表无法沟通，默认为无效房源。有效方有必要进行房源状态的修正或者有效号码的添加。
+   \n\tb.系统会对长时间已没有任何普通跟进的主营出售/出租状态房源发送无效通知（暂时是50天），一定时间以上无跟进的出售/出租状态房源不在售/租率相对较高，并且无人对该房进行维护，有必要让有效方进行一次确认。
+   \n\td.根据楼盘每个月标记的交易数据匹配结果为已售的房源在系统中带‘在售’状态（“出售”、“出售+出租”、“出售+暂缓出租”、“出售+已租”、“出售+我租”），发送无效通知。
+   \n\te.检核部会对新增出租/出售进行有效性检核，判断不合格的（（没有售房意愿/48小时没有证据/虚高开盘）会发送无效通知。
+   \n\tf.检核部会对出售/出租状态的房源进行不定期抽查状态检核，判断发现不符合状态的会发送无效通知(出售是检核状态，但是出租是检核状态、租约及看房情况三个字段）。
+   \n\tg.检核部会对出售/出租状态的房源的跟进（包括公开跟进和隐藏跟进）进行不定期检核，发现房源出租/出售状态变化未修改的，会发送无效通知。
+   \n\th.无效通知被有效方驳回后会经过检核部检核，有效方驳回必须要有录音或者截图证据，否则将视为驳回不合格，驳回检核不合格的会向该有效方的上级发送一条无效通知，让有效方上级处理。
         </div>
     </div>
 </div>

@@ -20,6 +20,7 @@ var taskDetailHouse_component_1 = require("./component/taskDetailHouse.component
 var taskDetailReason_component_1 = require("./component/taskDetailReason.component");
 var taskDetailOperate_component_1 = require("./component/taskDetailOperate.component");
 var taskDetailContent_component_1 = require("./component/taskDetailContent.component");
+var pictureSelect_component_1 = require("./component/pictureSelect.component");
 var appeal_component_1 = require("./component/appeal.component");
 var AppModule = (function () {
     function AppModule() {
@@ -29,14 +30,17 @@ var AppModule = (function () {
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, router_1.RouterModule.forRoot([
-                    { path: '', component: taskContainer_component_1.TaskContainerComponent },
+                    { path: '', component: appeal_component_1.AppealComponent },
                     { path: 'detail/:id', component: taskDetail_component_1.TaskDetailComponent },
                     { path: 'appeal', component: appeal_component_1.AppealComponent },
                 ])],
             declarations: [app_component_1.AppComponent, taskContainer_component_1.TaskContainerComponent, task_component_1.TaskComponent,
                 taskDetail_component_1.TaskDetailComponent, taskDetailHeader_component_1.TaskDetailHeaderComponent, taskDetailHouse_component_1.TaskDetailHouseComponent,
                 taskDetailReason_component_1.TaskDetailReasonComponent, taskDetailOperate_component_1.TaskDetailOperateComponent, taskDetailContent_component_1.TaskDetailContentComponent,
-                appeal_component_1.AppealComponent
+                appeal_component_1.AppealComponent, pictureSelect_component_1.PictureSelect
+            ],
+            providers: [
+                { provide: 'Window', useValue: window }
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

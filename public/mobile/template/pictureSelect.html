@@ -1,0 +1,8 @@
+<ul class="uploader_files">
+    <li *ngFor="let item of pictures;let i = index;" class="uploader_file"[ngClass]="{' uploader_status': i==0}"  [style]="item.add_style">
+        <div class="uploader_status_content" *ngIf="i==0">50%</div>
+    </li>
+    <li class="uploader_input_wrp" >
+        <input #content class="uploader_input" (change)="file_select()" type="file" accept="image/*" multiple="multiple">
+    </li>
+</ul>

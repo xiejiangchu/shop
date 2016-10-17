@@ -47,12 +47,40 @@
 
 
 
-<div class="filter-container">
+<div class="orderby-container">
     <div class="weui-row weui-no-gutter">
-        <div id='filter-category' class="weui-col-33">名称排序<i class="fa fa-angle-right"></i>
+        <div id='orderby-name' class="orderby weui-col-33">名称排序<i class="fa fa-angle-right"></i>
+        <div class="orderby-container">
+          <ul>
+            <li class="order-item">1</li>
+            <li class="order-item">2</li>
+            <li class="order-item">3</li>
+            <li class="order-item">4</li>
+            <li class="order-item">5</li>
+          </ul>
+        </div>
       </div>
-      <div id='filter-orderby' class="weui-col-33">销量排序<i class="fa fa-angle-right"></i></div>
-      <div id='filter-price' class="weui-col-33">价格排序<i class="fa fa-angle-right"></i></div>
+      <div id='orderby-sale' class="orderby weui-col-33">销量排序<i class="fa fa-angle-right"></i>
+      <div class="orderby-container">
+          <ul>
+            <li class="order-item">1</li>
+            <li class="order-item">2</li>
+            <li class="order-item">3</li>
+            <li class="order-item">4</li>
+            <li class="order-item">5</li>
+          </ul>
+        </div></div>
+      <div id='orderby-price' class="orderby weui-col-33">价格排序<i class="fa fa-angle-right"></i>
+        <div class="orderby-container">
+          <ul>
+            <li class="order-item">1</li>
+            <li class="order-item">2</li>
+            <li class="order-item">3</li>
+            <li class="order-item">4</li>
+            <li class="order-item">5</li>
+          </ul>
+        </div>
+      </div>
     </div>
 </div>
 

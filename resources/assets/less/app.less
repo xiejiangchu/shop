@@ -4,7 +4,7 @@
 @color-success: #4cd964;
 @color-yellow: #FF4500;
 @color-grey: #aaa;
-@color-fade: rgba(120, 120, 120, 0.8);
+@color-fade: rgba(255, 255, 255, 0.8);
 @color-bg: rgba(0, 0, 0, 0.10);
 @primary-color: #56bb36;
 @border-color: #d9d9d9;
@@ -267,15 +267,16 @@ body {
             }
         }
     }
-    div.filter-container {
+    div.orderby-container {
         width: 100%;
         padding: 0;
+        z-index: 100;
         border-top: 1px solid @border-color;
         border-bottom: 1px solid @border-color;
         font-size: 12px;
         i {
             margin-left: 5px;
-            color: @border-color;
+            // color: @border-color;
         }
         [class*="weui-col-"] {
             border-right: 1px solid @border-color;
@@ -294,6 +295,23 @@ body {
                 text-align: center;
                 font-size: 5px;
                 border: 1px solid #bbbbbb;
+            }
+        }
+        .orderby{
+            position: relative;
+        }
+
+        .orderby-container{
+            display: none;
+            position: absolute;
+            margin-top: 30px;
+            top: 0;
+            right: 0;
+            border: 1px solid #bbbbbb;
+            border-top:transparent;
+            background: @color-fade;
+            li{
+                list-style: none;
             }
         }
     }
